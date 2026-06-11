@@ -9,6 +9,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Cursor from "@/components/Cursor";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -58,6 +59,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${spaceMono.variable} ${bebasNeue.variable} ${permanentMarker.variable} font-sans antialiased`}
       >
         <Providers>
+          <Cursor />
           <Navbar />
           {children}
           <Footer />

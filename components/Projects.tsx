@@ -21,7 +21,6 @@ export default function Projects() {
           <SectionHeader number="03" title="Projects" onDark />
         </motion.div>
 
-        {/* Handwritten label */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -40,13 +39,16 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="group border-2 border-cream/10 hover:border-[#E8300A]/60 transition-all duration-200 hover:-translate-y-1 flex flex-col"
+              className="group relative border-2 border-cream/10 hover:border-[#E8300A] transition-colors duration-300 flex flex-col overflow-hidden"
             >
-              <div className="p-7 flex flex-col flex-1">
+              {/* Red wipe background */}
+              <div className="absolute inset-0 bg-[#E8300A] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out z-0" />
+
+              <div className="relative z-10 p-7 flex flex-col flex-1">
                 {/* Index + title + link */}
                 <div className="flex items-start justify-between gap-4 mb-5">
                   <div>
-                    <span className="text-[9px] font-mono text-cream/25 uppercase tracking-[0.35em]">
+                    <span className="text-[9px] font-mono text-cream/25 group-hover:text-cream/50 uppercase tracking-[0.35em] transition-colors duration-300">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <h3
@@ -60,14 +62,14 @@ export default function Projects() {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 p-2 border border-cream/15 text-cream/35 hover:text-cream hover:border-cream/60 hover:bg-[#E8300A] hover:border-[#E8300A] transition-all"
+                    className="shrink-0 p-2 border border-cream/15 group-hover:border-cream/60 text-cream/35 group-hover:text-cream transition-all duration-300"
                     aria-label="Source code"
                   >
                     <ArrowUpRight size={15} />
                   </a>
                 </div>
 
-                <p className="text-[13px] text-cream/48 leading-relaxed flex-1 mb-6">
+                <p className="text-[13px] text-cream/48 group-hover:text-cream/80 leading-relaxed flex-1 mb-6 transition-colors duration-300">
                   {project.description}
                 </p>
 
@@ -76,7 +78,10 @@ export default function Projects() {
                   {project.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-wider bg-[#E8300A]/12 text-[#E8300A] border border-[#E8300A]/25"
+                      className="px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-wider
+                        bg-[#E8300A]/12 text-[#E8300A] border border-[#E8300A]/25
+                        group-hover:bg-cream/15 group-hover:text-cream group-hover:border-cream/30
+                        transition-all duration-300"
                     >
                       {t}
                     </span>
@@ -84,12 +89,12 @@ export default function Projects() {
                 </div>
 
                 {/* Links */}
-                <div className="flex items-center gap-5 pt-4 border-t border-cream/8">
+                <div className="flex items-center gap-5 pt-4 border-t border-cream/8 group-hover:border-cream/20 transition-colors duration-300">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[11px] font-mono text-cream/35 hover:text-cream uppercase tracking-wider transition-colors"
+                    className="flex items-center gap-2 text-[11px] font-mono text-cream/35 group-hover:text-cream/70 uppercase tracking-wider transition-colors duration-300"
                   >
                     <Github size={13} />
                     Source
@@ -99,13 +104,13 @@ export default function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[11px] font-mono text-[#C5FF00] hover:text-cream uppercase tracking-wider transition-colors"
+                      className="flex items-center gap-2 text-[11px] font-mono text-[#C5FF00] group-hover:text-cream uppercase tracking-wider transition-colors duration-300"
                     >
                       <ExternalLink size={13} />
                       Live Demo
                     </a>
                   ) : (
-                    <span className="flex items-center gap-2 text-[11px] font-mono text-cream/20 uppercase tracking-wider cursor-default">
+                    <span className="flex items-center gap-2 text-[11px] font-mono text-cream/20 group-hover:text-cream/40 uppercase tracking-wider cursor-default transition-colors duration-300">
                       <ExternalLink size={13} />
                       Demo Soon
                     </span>
