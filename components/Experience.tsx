@@ -1,76 +1,86 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Calendar } from "lucide-react";
 import { experiences } from "@/data/portfolio";
-import SectionHeader from "./SectionHeader";
 
 export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="bg-[#131010] text-cream py-24 md:py-32 px-6 md:px-10 lg:px-16"
-    >
-      <div className="max-w-[1400px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <SectionHeader number="02" title="Experience" onDark />
-        </motion.div>
+    <section id="experience" className="bg-cream dark:bg-[#0f0b0b] text-ink dark:text-cream">
 
-        <div className="space-y-5">
-          {experiences.map((exp, i) => (
-            <motion.div
-              key={exp.company}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
-              className="group border border-cream/10 hover:border-[#E8300A]/40 transition-colors duration-200 relative overflow-hidden"
-            >
-              {/* Red left accent */}
-              <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#E8300A] opacity-0 group-hover:opacity-100 transition-opacity" />
-
-              <div className="p-7 md:p-9">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-                  <div>
-                    <h3
-                      className="font-display text-cream leading-none uppercase"
-                      style={{ fontSize: "clamp(28px, 4vw, 46px)" }}
-                    >
-                      {exp.company}
-                    </h3>
-                    <p className="mt-1.5 text-[10px] font-mono text-[#E8300A] uppercase tracking-[0.22em]">
-                      {exp.role}
-                    </p>
-                  </div>
-                  <div className="flex flex-col sm:items-end gap-1.5 shrink-0">
-                    <div className="flex items-center gap-2 text-[11px] font-mono text-cream/35 uppercase tracking-wider">
-                      <Calendar size={10} />
-                      {exp.period}
-                    </div>
-                    <div className="flex items-center gap-2 text-[11px] font-mono text-cream/25 uppercase tracking-wider">
-                      <MapPin size={10} />
-                      {exp.location}
-                    </div>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 border-t border-cream/8 pt-5">
-                  {exp.bullets.map((bullet, j) => (
-                    <li key={j} className="flex gap-4 text-[14px] text-cream/55 leading-relaxed">
-                      <span className="mt-[7px] w-[5px] h-[5px] rounded-full bg-[#E8300A] shrink-0" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
+      {/* ── Section header bar ── */}
+      <div className="border-b-2 border-ink dark:border-cream/10 px-6 md:px-10 lg:px-14 py-5 flex items-center justify-between">
+        <div className="flex items-end gap-5">
+          <span
+            className="font-display leading-none text-ink/6 dark:text-cream/6 select-none"
+            style={{ fontSize: "clamp(60px, 10vw, 120px)" }}
+          >
+            02
+          </span>
+          <h2
+            className="font-display uppercase text-ink dark:text-cream mb-1"
+            style={{ fontSize: "clamp(28px, 5vw, 64px)" }}
+          >
+            Experience
+          </h2>
         </div>
+        <span className="text-[8px] font-mono text-ink/20 dark:text-cream/20 uppercase tracking-[0.5em]">Pg. 03</span>
+      </div>
+
+      <div className="px-6 md:px-10 lg:px-14 divide-y-2 divide-ink/8 dark:divide-cream/8">
+        {experiences.map((exp, i) => (
+          <motion.div
+            key={exp.company}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="group py-14 md:py-16 relative overflow-hidden"
+          >
+            {/* Huge background index number */}
+            <span
+              className="absolute right-0 top-1/2 -translate-y-1/2 font-display text-ink/4 dark:text-cream/4 select-none pointer-events-none leading-none"
+              style={{ fontSize: "clamp(120px, 20vw, 280px)" }}
+            >
+              {String(i + 1).padStart(2, "0")}
+            </span>
+
+            {/* Company name — fills width */}
+            <div className="overflow-hidden mb-3">
+              <motion.h3
+                initial={{ y: "105%" }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: i * 0.1 + 0.15, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-ink dark:text-cream uppercase leading-none relative z-10"
+                style={{ fontSize: "clamp(44px, 8vw, 110px)" }}
+              >
+                {exp.company}
+              </motion.h3>
+            </div>
+
+            {/* Role — centered with lines */}
+            <div className="flex items-center gap-4 mb-8 relative z-10">
+              <div className="h-px flex-1 bg-ink/15 dark:bg-cream/15" />
+              <span className="text-[10px] font-mono text-[#E8300A] uppercase tracking-[0.3em] whitespace-nowrap">
+                {exp.role}
+              </span>
+              <div className="h-px flex-1 bg-ink/15 dark:bg-cream/15" />
+              <span className="text-[10px] font-mono text-ink/30 dark:text-cream/30 uppercase tracking-wider whitespace-nowrap">
+                {exp.period}
+              </span>
+            </div>
+
+            {/* Bullets — 2 column */}
+            <ul className="grid md:grid-cols-2 gap-x-10 gap-y-4 relative z-10">
+              {exp.bullets.map((bullet, j) => (
+                <li key={j} className="flex gap-3 text-[13px] text-ink/50 dark:text-cream/50 leading-relaxed">
+                  <span className="mt-[7px] w-[4px] h-[4px] rounded-full bg-[#E8300A] shrink-0" />
+                  {bullet}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
