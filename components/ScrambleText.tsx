@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+function rand() {
+  return CHARS[Math.floor(Math.random() * CHARS.length)];
+}
+
 export default function ScrambleText({
   text,
   delay = 0,
@@ -15,23 +19,25 @@ export default function ScrambleText({
   className?: string;
   style?: React.CSSProperties;
 }) {
-  const [displayed, setDisplayed] = useState(
-    text.split("").map((c) => (c === " " ? " " : CHARS[Math.floor(Math.random() * CHARS.length)])).join("")
-  );
+  // Server renders the real text — no hydration mismatch
+  const [displayed, setDisplayed] = useState(text);
 
   useEffect(() => {
-    let frame = 0;
-    let settled = 0;
     let timerId: ReturnType<typeof setTimeout>;
     let intervalId: ReturnType<typeof setInterval>;
+    let frame = 0;
+    let settled = 0;
 
     timerId = setTimeout(() => {
+      // Jump to fully-scrambled immediately on client
+      setDisplayed(text.split("").map((c) => (c === " " ? " " : rand())).join(""));
+
       intervalId = setInterval(() => {
         setDisplayed(
           text.split("").map((char, i) => {
             if (char === " ") return " ";
             if (i < settled) return char;
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
+            return rand();
           }).join("")
         );
         frame++;
