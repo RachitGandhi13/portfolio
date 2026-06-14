@@ -49,7 +49,7 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
               {[
                 { label: "GitHub",   href: "https://github.com/RachitGandhi13" },
                 { label: "LinkedIn", href: "https://linkedin.com/in/rachitgandhi13" },
-                { label: "LeetCode", href: "https://leetcode.com/rachitgandhi13" },
+                { label: "LeetCode", href: "https://leetcode.com/u/rachitgandhi/" },
               ].map(({ label, href }) => (
                 <a
                   key={label}

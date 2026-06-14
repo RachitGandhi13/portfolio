@@ -119,7 +119,7 @@ export const projects: ProjectItem[] = [
       "Full P&L tracking and chart visualisation across sessions",
     ],
     tech: ["MongoDB", "Express.js", "React", "Node.js", "Chart.js"],
-    github: "https://github.com/RachitGandhi13/trading-platform",
+    github: "https://github.com/RachitGandhi13/zerodhaClone",
     demo: null,
   },
   {
@@ -140,7 +140,7 @@ export const projects: ProjectItem[] = [
       "Full signaling flow implemented: offer → answer → ICE candidate exchange",
     ],
     tech: ["React", "Node.js", "Express.js", "WebRTC", "Socket.io", "MongoDB"],
-    github: "https://github.com/RachitGandhi13/videoCalling",
+    github: "https://github.com/RachitGandhi13/auroraConnect",
     demo: null,
   },
 ];
