@@ -3,21 +3,20 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
 
 function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="w-4 h-4" />;
+  if (!mounted) return <span className="w-6 h-4 inline-block" />;
   const isDark = resolvedTheme === "dark";
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="text-[var(--muted)] hover:text-[var(--fg)] transition-colors"
+      className="paren-link hover:text-[var(--fg)]"
       aria-label="Toggle theme"
     >
-      {isDark ? <Sun size={14} /> : <Moon size={14} />}
+      ({isDark ? "light" : "dark"})
     </button>
   );
 }
@@ -29,56 +28,42 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300"
-        style={{
-          backgroundColor: scrolled ? "var(--bg)" : "transparent",
-          borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
-          backdropFilter: scrolled ? "blur(16px)" : "none",
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="fixed top-0 left-0 right-0 z-[100] px-6 md:px-10 lg:px-16 h-[56px] flex items-center justify-between"
+        style={{ backgroundColor: "var(--bg)" }}
       >
-        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-16 h-14 flex items-center justify-between">
-          <a href="#" className="font-display text-[var(--fg)] text-2xl tracking-wider leading-none">
-            RG<span className="text-red">.</span>
-          </a>
+        <a
+          href="#"
+          className="text-[11px] font-mono tracking-[0.12em]"
+          style={{ color: "var(--muted)" }}
+        >
+          Rachit — folio
+        </a>
 
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-[11px] font-mono text-[var(--muted)] hover:text-[var(--fg)] uppercase tracking-[0.15em] transition-colors duration-200"
-              >
-                {link.label}
-              </a>
-            ))}
-            <ThemeToggle />
-          </nav>
+        {/* Desktop */}
+        <nav className="hidden md:flex items-center gap-6">
+          {navLinks.map((l) => (
+            <a key={l.label} href={l.href} className="paren-link">
+              ({l.label})
+            </a>
+          ))}
+          <ThemeToggle />
+        </nav>
 
-          <div className="flex md:hidden items-center gap-5">
-            <ThemeToggle />
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-[11px] font-mono text-[var(--muted)] uppercase tracking-[0.15em]"
-            >
-              {menuOpen ? "Close" : "Menu"}
-            </button>
-          </div>
-        </div>
+        {/* Mobile */}
+        <button
+          className="md:hidden paren-link"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "(close)" : "(menu)"}
+        </button>
       </motion.header>
 
       <AnimatePresence>
@@ -87,21 +72,21 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99] flex flex-col items-center justify-center gap-10"
+            className="fixed inset-0 z-[99] flex flex-col items-center justify-center gap-8"
             style={{ backgroundColor: "var(--bg)" }}
           >
-            {navLinks.map((link, i) => (
+            {navLinks.map((l, i) => (
               <motion.a
-                key={link.label}
-                href={link.href}
+                key={l.label}
+                href={l.href}
                 onClick={() => setMenuOpen(false)}
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.07 }}
+                transition={{ delay: i * 0.06 }}
                 className="font-display text-5xl uppercase"
                 style={{ color: "var(--fg)" }}
               >
-                {link.label}
+                ({l.label})
               </motion.a>
             ))}
           </motion.div>

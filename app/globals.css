@@ -4,21 +4,21 @@
 
 @layer base {
   :root {
-    --bg: #F5F4F0;
-    --fg: #111111;
-    --muted: #888888;
-    --border: #E2E0DB;
-    --surface: #E9E7E2;
-    --stroke-color: #111111;
+    --bg: #F8F7F4;
+    --fg: #0A0A0A;
+    --muted: #999999;
+    --border: #E5E4DF;
+    --surface: #EEECEA;
+    --stroke-color: #0A0A0A;
   }
 
   .dark {
-    --bg: #0F0F0F;
-    --fg: #F0EDE8;
-    --muted: #666666;
-    --border: #2A2A2A;
-    --surface: #1A1A1A;
-    --stroke-color: #F0EDE8;
+    --bg: #0A0A0A;
+    --fg: #F8F7F4;
+    --muted: #555555;
+    --border: #1E1E1E;
+    --surface: #141414;
+    --stroke-color: #F8F7F4;
   }
 
   html {
@@ -29,14 +29,19 @@
     background-color: var(--bg);
     color: var(--fg);
     font-feature-settings: "ss01", "ss02", "cv01";
+    -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: #e8300a;
-    color: #f0ede8;
+    background: #0A0A0A;
+    color: #F8F7F4;
   }
 
-  /* Hide native cursor on mouse devices */
+  .dark ::selection {
+    background: #F8F7F4;
+    color: #0A0A0A;
+  }
+
   @media (pointer: fine) {
     *, *::before, *::after {
       cursor: none !important;
@@ -46,19 +51,43 @@
 
 @layer utilities {
   .outline-text {
-    -webkit-text-stroke: 1.5px var(--stroke-color);
+    -webkit-text-stroke: 1px var(--stroke-color);
     color: transparent;
   }
 
-  .text-muted {
+  /* Horizontal scrolling marquee */
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee-scroll 18s linear infinite;
+  }
+
+  .marquee-track-rev {
+    animation-direction: reverse;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Section label — ning-h "######" style */
+  .section-label {
+    font-family: var(--font-space-mono), monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
     color: var(--muted);
   }
 
-  .bg-surface {
-    background-color: var(--surface);
+  /* Link with parentheses hover */
+  .paren-link {
+    position: relative;
+    font-family: var(--font-space-mono), monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    transition: color 0.2s;
   }
-
-  .border-line {
-    border-color: var(--border);
-  }
+  .paren-link:hover { color: var(--fg); }
 }

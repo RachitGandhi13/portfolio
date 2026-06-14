@@ -1,51 +1,51 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import { personalInfo } from "@/data/portfolio";
 import ScrambleText from "./ScrambleText";
 
-const fade = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
+const up = (delay = 0) => ({
+  initial: { opacity: 0, y: 18 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
 });
 
 export default function Hero() {
   return (
-    <section
-      className="relative min-h-screen flex flex-col justify-between pt-32 pb-12 px-6 md:px-10 lg:px-16 max-w-[1400px] mx-auto"
-    >
-      {/* Top area */}
-      <div className="flex items-start justify-between">
-        <motion.div {...fade(0.15)} className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] animate-pulse" />
-          <span className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-[0.25em]">
-            Available for work
-          </span>
-        </motion.div>
-        <motion.p {...fade(0.15)} className="text-[10px] font-mono text-[var(--muted)] uppercase tracking-[0.2em]">
+    <section className="relative min-h-screen flex flex-col px-6 md:px-10 lg:px-16 pt-[56px]">
+
+      {/* Top bar */}
+      <div className="flex items-center justify-between py-6 border-b" style={{ borderColor: "var(--border)" }}>
+        <motion.p {...up(0.2)} className="section-label">
+          Building production, code & real impact
+        </motion.p>
+        <motion.p {...up(0.2)} className="section-label">
           Portfolio &#39;26
         </motion.p>
       </div>
 
-      {/* Name — massive, center of gravity */}
-      <div className="mt-16 md:mt-0 select-none">
+      {/* Name block */}
+      <div className="flex-1 flex flex-col justify-center py-10 relative">
+
+        {/* "00" top right */}
+        <motion.span
+          {...up(0.5)}
+          className="absolute top-6 right-0 section-label"
+        >
+          00
+        </motion.span>
+
+        {/* Big name */}
         <div className="overflow-hidden">
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <ScrambleText
               text="RACHIT"
-              delay={150}
-              className="font-display block leading-none"
-              style={{
-                fontSize: "clamp(68px, 18vw, 280px)",
-                color: "var(--fg)",
-                letterSpacing: "-0.01em",
-              }}
+              delay={200}
+              className="font-display block leading-[0.9] select-none"
+              style={{ fontSize: "clamp(72px, 20vw, 300px)", color: "var(--fg)" }}
             />
           </motion.div>
         </div>
@@ -53,76 +53,44 @@ export default function Hero() {
           <motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
-            transition={{ delay: 0.08, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.08, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <ScrambleText
               text="GANDHI"
-              delay={350}
-              className="font-display block leading-none outline-text"
-              style={{
-                fontSize: "clamp(68px, 18vw, 280px)",
-                letterSpacing: "-0.01em",
-              }}
+              delay={400}
+              className="font-display block leading-[0.9] select-none outline-text"
+              style={{ fontSize: "clamp(72px, 20vw, 300px)" }}
             />
           </motion.div>
         </div>
+
+        {/* Developer — label */}
+        <motion.p {...up(0.55)} className="mt-5 section-label">
+          Developer —
+        </motion.p>
       </div>
 
-      {/* Bottom row */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
-        <motion.div {...fade(0.55)} className="space-y-3 max-w-sm">
-          <p className="text-[11px] font-mono text-red uppercase tracking-[0.3em]">
-            Full-Stack Developer
-          </p>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--muted)" }}>
-            MERN · Next.js · TypeScript · WebRTC · Solidity.
-            <br />
-            Building things that actually ship.
-          </p>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em]" style={{ color: "var(--muted)" }}>
-            SRM University · Chennai, India
-          </p>
-        </motion.div>
-
-        <motion.div {...fade(0.65)} className="flex flex-wrap gap-6 sm:gap-8">
-          {[
-            { label: "GitHub", href: personalInfo.github },
-            { label: "LinkedIn", href: personalInfo.linkedin },
-            { label: "Email", href: `mailto:${personalInfo.email}` },
-            { label: "Resume", href: personalInfo.resumePath, download: true },
-          ].map(({ label, href, download }) => (
-            <a
-              key={label}
-              href={href}
-              download={download}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="group flex items-center gap-1 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors duration-200"
-              style={{ color: "var(--muted)" }}
-            >
-              <span className="group-hover:text-[var(--fg)] transition-colors">{label}</span>
-              <ArrowUpRight
-                size={10}
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{ color: "var(--fg)" }}
-              />
-            </a>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Scroll hint */}
-      <motion.div
-        {...fade(0.9)}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+      {/* Bottom info block */}
+      <div
+        className="py-8 grid md:grid-cols-2 gap-6 border-t"
+        style={{ borderColor: "var(--border)" }}
       >
-        <motion.div
-          className="w-px h-10 bg-gradient-to-b from-transparent"
-          style={{ backgroundColor: "var(--border)" }}
-          animate={{ scaleY: [0, 1, 0], originY: "top" }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </motion.div>
+        <motion.div {...up(0.7)}>
+          <p className="text-sm leading-[1.75] max-w-sm" style={{ color: "var(--muted)" }}>
+            Rachit Gandhi is a developer focused on full-stack
+            engineering and production systems — MERN, TypeScript,
+            WebRTC, and Web3 (Solidity).
+          </p>
+        </motion.div>
+        <motion.div {...up(0.8)} className="flex flex-col justify-end gap-1">
+          <p className="section-label">
+            I&#39;m a developer based in Chennai, IN
+          </p>
+          <p className="section-label">
+            Focused on MERN, real-time systems & Web3
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 }
