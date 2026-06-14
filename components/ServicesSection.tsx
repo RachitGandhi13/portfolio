@@ -65,9 +65,6 @@ export default function ServicesSection() {
             >
               And bring ideas to life with clean code.
             </p>
-            <p className="font-mono text-[11px] mt-6 tracking-[0.06em]" style={{ color: "var(--muted)" }}>
-              /Here&apos;s some of my projects
-            </p>
           </motion.div>
 
           <div className="flex items-start justify-end">
