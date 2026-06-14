@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight } from "lucide-react";
+import { Github, ExternalLink } from "lucide-react";
 import { projects } from "@/data/portfolio";
 
 export default function Projects() {
@@ -24,7 +24,7 @@ export default function Projects() {
             >
               Projects
             </h2>
-            <p className="font-marker text-[#E8300A] text-base mt-1 -rotate-1 inline-block">
+            <p className="font-marker text-[#E8300A] text-base mt-0.5 -rotate-1 inline-block">
               currently cooking 👨‍🍳
             </p>
           </div>
@@ -34,97 +34,160 @@ export default function Projects() {
 
       <div className="divide-y-2 divide-cream/8">
         {projects.map((project, i) => (
-          <motion.div
+          <motion.article
             key={project.title}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden px-6 md:px-10 lg:px-14 py-14 md:py-16"
+            transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative overflow-hidden"
           >
-            {/* Full red wipe on hover */}
-            <div className="absolute inset-0 bg-[#E8300A] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out z-0" />
+            {/* ── Project header — full width ── */}
+            <div className="relative px-6 md:px-10 lg:px-14 pt-14 pb-0 overflow-hidden">
+              {/* Ghost number */}
+              <span
+                className="absolute right-6 lg:right-14 top-6 font-display text-cream/4 select-none pointer-events-none leading-none"
+                style={{ fontSize: "clamp(100px, 18vw, 240px)" }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
 
-            {/* Giant project number — background */}
-            <span
-              className="absolute right-6 lg:right-14 top-1/2 -translate-y-1/2 font-display text-cream/4 group-hover:text-cream/15 select-none pointer-events-none leading-none transition-colors duration-500 z-10"
-              style={{ fontSize: "clamp(120px, 20vw, 280px)" }}
-            >
-              {String(i + 1).padStart(2, "0")}
-            </span>
+              {/* Project title */}
+              <div className="overflow-hidden mb-3 relative z-10">
+                <h3
+                  className="font-display text-cream uppercase leading-none"
+                  style={{ fontSize: "clamp(40px, 7vw, 100px)" }}
+                >
+                  {project.title}
+                </h3>
+              </div>
 
-            <div className="relative z-20 grid md:grid-cols-[1fr_auto] gap-8 items-start">
-              {/* Left content */}
-              <div>
-                {/* Project title */}
-                <div className="overflow-hidden mb-3">
-                  <h3
-                    className="font-display text-cream uppercase leading-none group-hover:text-ink transition-colors duration-300"
-                    style={{ fontSize: "clamp(36px, 6vw, 80px)" }}
-                  >
-                    {project.title}
-                  </h3>
+              {/* Role + tech row */}
+              <div className="flex flex-wrap items-center gap-4 mb-8 relative z-10">
+                <div className="flex items-center gap-3">
+                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.35em]">Role</span>
+                  <div className="h-px w-4 bg-cream/20" />
+                  <span className="text-[10px] font-mono text-cream/45 uppercase tracking-wider">Solo — Full Stack</span>
                 </div>
-
-                {/* Description */}
-                <p className="text-[13px] text-cream/48 group-hover:text-ink/70 leading-relaxed max-w-2xl mb-6 transition-colors duration-300">
-                  {project.description}
-                </p>
-
-                {/* Tech tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1.5">
                   {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="px-3 py-1 text-[9px] font-mono font-bold uppercase tracking-wider
-                        bg-[#E8300A]/15 text-[#E8300A] border border-[#E8300A]/30
-                        group-hover:bg-ink/20 group-hover:text-ink group-hover:border-ink/30
-                        transition-all duration-300"
-                    >
+                    <span key={t} className="px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider bg-cream/6 text-cream/40 border border-cream/10">
                       {t}
                     </span>
                   ))}
                 </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-6 pt-4 border-t border-cream/8 group-hover:border-ink/15 transition-colors duration-300">
+                <div className="flex items-center gap-4 ml-auto">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[11px] font-mono text-cream/40 group-hover:text-ink/60 uppercase tracking-wider transition-colors duration-300 hover:text-cream"
+                    className="flex items-center gap-2 text-[10px] font-mono text-cream/35 hover:text-[#E8300A] uppercase tracking-wider transition-colors"
                   >
-                    <Github size={13} /> Source
+                    <Github size={12} /> Source
                   </a>
                   {project.demo ? (
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[11px] font-mono text-[#C5FF00] group-hover:text-ink uppercase tracking-wider transition-colors duration-300"
+                      className="flex items-center gap-2 text-[10px] font-mono text-[#C5FF00] hover:text-cream uppercase tracking-wider transition-colors"
                     >
-                      <ExternalLink size={13} /> Live Demo
+                      <ExternalLink size={12} /> Live
                     </a>
-                  ) : (
-                    <span className="flex items-center gap-2 text-[11px] font-mono text-cream/20 group-hover:text-ink/30 uppercase tracking-wider transition-colors duration-300">
-                      <ExternalLink size={13} /> Demo Soon
-                    </span>
-                  )}
+                  ) : null}
                 </div>
               </div>
 
-              {/* Arrow button */}
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 p-3 border-2 border-cream/15 text-cream/40 hover:border-cream hover:text-cream group-hover:border-ink/40 group-hover:text-ink transition-all duration-300"
-                aria-label="View project"
-              >
-                <ArrowUpRight size={20} />
-              </a>
+              {/* Red divider */}
+              <div className="h-[2px] bg-[#E8300A]/30 relative z-10" />
             </div>
-          </motion.div>
+
+            {/* ── Article body — 3 column layout ── */}
+            <div className="px-6 md:px-10 lg:px-14 pt-10 pb-14 grid md:grid-cols-3 gap-8 md:gap-12">
+
+              {/* Column 1: Problem + Solution */}
+              <div className="md:col-span-1 space-y-7">
+                <div>
+                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-3">
+                    The Problem
+                  </span>
+                  <p className="text-[13px] text-cream/55 leading-relaxed">
+                    {project.problem}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-3">
+                    The Solution
+                  </span>
+                  <p className="text-[13px] text-cream/55 leading-relaxed">
+                    {project.solution}
+                  </p>
+                </div>
+              </div>
+
+              {/* Column 2: Role + Constraint + Trade-off */}
+              <div className="md:col-span-1 space-y-7">
+                <div>
+                  <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-3">
+                    My Role
+                  </span>
+                  <p className="text-[13px] text-cream/55 leading-relaxed">
+                    {project.role}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-3">
+                    Constraints
+                  </span>
+                  <p className="text-[13px] text-cream/55 leading-relaxed">
+                    {project.constraint}
+                  </p>
+                </div>
+                <div className="border-l-[3px] border-[#E8300A] pl-4">
+                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-2">
+                    Key Trade-off
+                  </span>
+                  <p className="text-[13px] text-cream/55 leading-relaxed italic">
+                    {project.tradeoff}
+                  </p>
+                </div>
+              </div>
+
+              {/* Column 3: Impact */}
+              <div className="md:col-span-1">
+                <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-5">
+                  Impact
+                </span>
+                <ul className="space-y-4">
+                  {project.impact.map((item, j) => (
+                    <motion.li
+                      key={j}
+                      initial={{ opacity: 0, x: 15 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: j * 0.1 + 0.2 }}
+                      className="flex gap-3 text-[13px] text-cream/60 leading-relaxed"
+                    >
+                      <span className="mt-[7px] shrink-0 w-[5px] h-[5px] rounded-full bg-[#E8300A]" />
+                      {item}
+                    </motion.li>
+                  ))}
+                </ul>
+
+                {/* Handwritten aside */}
+                {i === 0 && (
+                  <p className="font-marker text-cream/20 text-base mt-8 -rotate-1 inline-block">
+                    built to understand, not to show off.
+                  </p>
+                )}
+                {i === 1 && (
+                  <p className="font-marker text-cream/20 text-base mt-8 -rotate-1 inline-block">
+                    no SDK. just raw WebRTC.
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.article>
         ))}
       </div>
     </section>

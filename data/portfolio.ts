@@ -13,7 +13,12 @@ export interface ExperienceItem {
 
 export interface ProjectItem {
   title: string;
-  description: string;
+  problem: string;
+  solution: string;
+  role: string;
+  constraint: string;
+  tradeoff: string;
+  impact: string[];
   tech: string[];
   github: string;
   demo: string | null;
@@ -94,16 +99,42 @@ export const experiences: ExperienceItem[] = [
 export const projects: ProjectItem[] = [
   {
     title: "Trading Platform",
-    description:
-      "Full-stack MERN stock-trading simulation with buy/sell operations and portfolio tracking for 50+ simulated stocks. Fortified with input validation and secure API handling to prevent SQL injection and XSS attacks, reducing vulnerability risks by 40%.",
+    problem:
+      "Most stock-trading learning tools are either too simplified to be realistic or too complex to learn from. There was no middle ground for students to simulate real portfolio decisions with actual market mechanics.",
+    solution:
+      "Built a full-stack MERN trading simulation where users can buy/sell across 50+ stocks with live portfolio tracking, P&L calculation, and Chart.js visualisations — close enough to real to teach intuition, safe enough to experiment.",
+    role:
+      "Solo project. Designed the schema, built all REST APIs, implemented the React frontend, and handled auth + security hardening end-to-end.",
+    constraint:
+      "Built solo in under 3 weeks as a self-learning exercise. No third-party trading API budget, so all stock price logic runs on simulated data.",
+    tradeoff:
+      "Chose simulated prices over a free API (like Yahoo Finance) because rate limits would've broken real-time updates for multiple concurrent sessions. Sacrificed live data for a more stable learning experience.",
+    impact: [
+      "Tracks 50+ simulated stocks with real buy/sell mechanics",
+      "40% reduction in security vulnerabilities after hardening APIs against SQL injection and XSS",
+      "Full P&L tracking and chart visualisation across sessions",
+    ],
     tech: ["MongoDB", "Express.js", "React", "Node.js", "Chart.js"],
     github: "https://github.com/RachitGandhi13/trading-platform",
     demo: null,
   },
   {
-    title: "Video Conferencing Platform",
-    description:
-      "Real-time video conferencing application supporting up to 10 concurrent users with WebRTC peer-to-peer media streaming and Socket.io signaling, achieving low-latency communication across 5–10 participants.",
+    title: "Video Conferencing",
+    problem:
+      "Zoom and Google Meet are black boxes — great to use, impossible to learn from. I wanted to understand how peer-to-peer video streaming actually works at the protocol level, not just call an SDK.",
+    solution:
+      "Built a WebRTC-based video conferencing app from scratch using native browser APIs for P2P media, Socket.io for signaling, and a Node/Express server for room management — no Twilio, no Agora, no shortcuts.",
+    role:
+      "Solo project. Implemented the full WebRTC handshake (offer/answer/ICE), Socket.io signaling server, and React room UI.",
+    constraint:
+      "No third-party video SDK allowed (self-imposed). Had to implement STUN/TURN config manually and handle browser compatibility edge cases across Chrome and Firefox.",
+    tradeoff:
+      "Kept the server stateless (rooms stored in memory, not DB) to simplify architecture. This means rooms don't survive server restarts — acceptable for a learning project, not production.",
+    impact: [
+      "Supports up to 10 concurrent users in a single room",
+      "Achieves low-latency P2P streaming without any paid video SDK",
+      "Full signaling flow implemented: offer → answer → ICE candidate exchange",
+    ],
     tech: ["React", "Node.js", "Express.js", "WebRTC", "Socket.io", "MongoDB"],
     github: "https://github.com/RachitGandhi13/videoCalling",
     demo: null,
