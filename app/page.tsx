@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Preloader from "@/components/Preloader";
+import Navbar from "@/components/Navbar";
 import Header from "@/components/Header";
 import AboutPanel from "@/components/AboutPanel";
 import CubeSection from "@/components/CubeSection";
@@ -14,14 +15,23 @@ export default function Home() {
 
   return (
     <>
+      {/* Preloader — highest z */}
       <Preloader />
-      <Header onAboutOpen={() => setAboutOpen(true)} />
+
+      {/* Persistent navbar — z:500, always above content */}
+      <Navbar onAboutOpen={() => setAboutOpen(true)} />
+
+      {/* Hero header — z:20, the big centered name, slides under scrolling content */}
+      <Header />
+
+      {/* About panel overlay */}
       <AboutPanel isOpen={aboutOpen} onClose={() => setAboutOpen(false)} />
 
-      {/* Spacer to push main below full-viewport header */}
+      {/* Spacer: push main content below the full-viewport hero */}
       <div style={{ height: "100vh" }} />
 
-      <main style={{ backgroundColor: "#0A0A0A" }}>
+      {/* Main content: z:200 — scrolls over the fixed hero name */}
+      <main style={{ position: "relative", zIndex: 200, backgroundColor: "var(--bg)" }}>
         <CubeSection />
         <ServicesSection />
         <Projects />

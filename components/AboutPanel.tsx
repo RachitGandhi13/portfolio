@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import ProfilePhoto from "./ProfilePhoto";
 
 interface AboutPanelProps {
   isOpen: boolean;
@@ -17,53 +18,162 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
           exit={{ opacity: 0, y: "4%" }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[800] overflow-y-auto"
-          style={{ backgroundColor: "#0A0A0A", color: "#F5F4F0" }}
+          style={{ backgroundColor: "var(--bg)", color: "var(--fg)" }}
         >
           {/* Close button */}
           <button
             onClick={onClose}
             className="fixed top-6 right-8 z-[801] font-mono text-[20px] leading-none"
-            style={{ color: "#F5F4F0", background: "none", border: "none", opacity: 0.6 }}
+            style={{ color: "var(--fg)", background: "none", border: "none", opacity: 0.6 }}
             aria-label="Close about panel"
           >
             ×
           </button>
 
           <div className="px-6 md:px-10 lg:px-16 pt-24 pb-24 max-w-3xl">
-            {/* Bio */}
-            <p
-              className="font-sans text-[clamp(18px,2.8vw,32px)] leading-[1.5] font-light mb-16"
-              style={{ color: "#F5F4F0" }}
-            >
-              Rachit Gandhi is a developer focused on full-stack
-              engineering and production systems — MERN, TypeScript,
-              WebRTC, and Web3. Building things that ship.
-            </p>
+            {/* Bio + Photo */}
+            <div className="flex items-start gap-8 mb-6">
+              <p
+                className="font-sans text-[clamp(18px,2.8vw,32px)] leading-[1.5] font-light flex-1"
+                style={{ color: "var(--fg)" }}
+              >
+                Rachit Gandhi is a developer focused on full-stack
+                engineering and production systems: MERN, TypeScript,
+                Web3, and DevOps. Building things that ship.
+              </p>
+              <ProfilePhoto className="w-28 h-28 md:w-36 md:h-36 rounded-full flex-shrink-0" />
+            </div>
+
+            {/* Social links */}
+            <div className="flex items-center gap-6 mb-16">
+              {[
+                { label: "GitHub",   href: "https://github.com/RachitGandhi13" },
+                { label: "LinkedIn", href: "https://linkedin.com/in/rachitgandhi13" },
+                { label: "LeetCode", href: "https://leetcode.com/rachitgandhi13" },
+              ].map(({ label, href }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[11px] uppercase tracking-[0.1em] transition-opacity hover:opacity-100"
+                  style={{ color: "var(--fg)", opacity: 0.6, textDecoration: "none" }}
+                >
+                  {label} ↗
+                </a>
+              ))}
+            </div>
 
             {/* Experiences */}
             <div className="mb-12">
               <h6
-                className="font-mono text-[10px] uppercase tracking-[0.35em] mb-5"
-                style={{ color: "#555555" }}
+                className="font-mono text-[10px] uppercase tracking-[0.35em] mb-6"
+                style={{ color: "var(--muted)" }}
               >
                 Experiences
               </h6>
-              <ul className="space-y-3">
-                <li className="flex items-baseline justify-between">
-                  <span className="font-sans text-[15px]" style={{ color: "#F5F4F0" }}>
-                    The Language Salon
-                  </span>
-                  <span className="font-mono text-[11px]" style={{ color: "#555555" }}>
-                    Feb — Mar &apos;26
-                  </span>
+
+              <ul className="space-y-8">
+                {/* Language Salon */}
+                <li>
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <div>
+                      <a
+                        href="https://thelanguagesalon.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans text-[15px] inline-flex items-center gap-1.5 transition-opacity hover:opacity-60"
+                        style={{ color: "var(--fg)" }}
+                      >
+                        The Language Salon
+                        <span style={{ color: "var(--muted)", fontSize: "11px" }}>↗</span>
+                      </a>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--muted)" }}>
+                        Full Stack Developer (Freelance)
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] flex-shrink-0 mt-0.5" style={{ color: "var(--muted)" }}>
+                      Feb to Mar 2026
+                    </span>
+                  </div>
+                  <p className="font-sans text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
+                    Built and deployed a production Next.js website with Razorpay payment integration,
+                    SEO optimization, and an automated lead-capture system. Reduced page load time by 25%
+                    and captured 30+ leads per month.
+                  </p>
                 </li>
-                <li className="flex items-baseline justify-between">
-                  <span className="font-sans text-[15px]" style={{ color: "#F5F4F0" }}>
-                    Lions International
-                  </span>
-                  <span className="font-mono text-[11px]" style={{ color: "#555555" }}>
-                    May — Jul &apos;25
-                  </span>
+
+                {/* Lions International */}
+                <li>
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <div>
+                      <a
+                        href="https://www.lionsclubs.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-sans text-[15px] inline-flex items-center gap-1.5 transition-opacity hover:opacity-60"
+                        style={{ color: "var(--fg)" }}
+                      >
+                        Lions International
+                        <span style={{ color: "var(--muted)", fontSize: "11px" }}>↗</span>
+                      </a>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--muted)" }}>
+                        Software Developer Intern
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] flex-shrink-0 mt-0.5" style={{ color: "var(--muted)" }}>
+                      May to Jul 2025
+                    </span>
+                  </div>
+                  <p className="font-sans text-[13px] leading-relaxed" style={{ color: "var(--muted)" }}>
+                    Developed and debugged MERN stack applications, designed RESTful APIs with optimized
+                    MongoDB queries, and resolved frontend state-management issues. Improved API response
+                    time by 25% and cut debugging time by 25%.
+                  </p>
+                </li>
+              </ul>
+            </div>
+
+            {/* Education */}
+            <div className="mb-12">
+              <h6
+                className="font-mono text-[10px] uppercase tracking-[0.35em] mb-6"
+                style={{ color: "var(--muted)" }}
+              >
+                Education
+              </h6>
+              <ul className="space-y-6">
+                <li>
+                  <div className="flex items-start justify-between gap-4 mb-1">
+                    <div>
+                      <p className="font-sans text-[15px]" style={{ color: "var(--fg)" }}>SRM University</p>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--muted)" }}>
+                        B.Tech, Computer Science and Engineering
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] flex-shrink-0 mt-0.5" style={{ color: "var(--muted)" }}>
+                      2023 to 2027
+                    </span>
+                  </div>
+                  <p className="font-sans text-[13px]" style={{ color: "var(--muted)" }}>
+                    Chennai, India · GPA 9.00 / 10
+                  </p>
+                </li>
+                <li>
+                  <div className="flex items-start justify-between gap-4 mb-1">
+                    <div>
+                      <p className="font-sans text-[15px]" style={{ color: "var(--fg)" }}>Saint Francis School, Deoghar</p>
+                      <p className="font-mono text-[11px] mt-0.5" style={{ color: "var(--muted)" }}>
+                        Class 12: 80% · Class 10: 95.4%
+                      </p>
+                    </div>
+                    <span className="font-mono text-[11px] flex-shrink-0 mt-0.5" style={{ color: "var(--muted)" }}>
+                      2021 to 2023
+                    </span>
+                  </div>
+                  <p className="font-sans text-[13px]" style={{ color: "var(--muted)" }}>
+                    Deoghar, India
+                  </p>
                 </li>
               </ul>
             </div>
@@ -72,19 +182,27 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
             <div className="mb-12">
               <h6
                 className="font-mono text-[10px] uppercase tracking-[0.35em] mb-5"
-                style={{ color: "#555555" }}
+                style={{ color: "var(--muted)" }}
               >
                 Recognitions
               </h6>
               <ul className="space-y-3">
                 {[
-                  "Oracle Certified Foundations Associate",
-                  "NPTEL — Programming in Java",
-                  "DBMS Certification (Scaler)",
-                  "GPA 8.97 / 10",
-                ].map((item) => (
-                  <li key={item} className="font-sans text-[15px]" style={{ color: "#F5F4F0" }}>
-                    {item}
+                  { label: "Oracle Certified Foundations Associate", href: "https://catalog-education.oracle.com" },
+                  { label: "NPTEL: Programming in Java",             href: "https://nptel.ac.in" },
+                  { label: "DBMS Certification (Scaler)",            href: "https://www.scaler.com" },
+                ].map(({ label, href }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-sans text-[15px] inline-flex items-center gap-1.5 transition-opacity hover:opacity-60"
+                      style={{ color: "var(--fg)" }}
+                    >
+                      {label}
+                      <span style={{ color: "var(--muted)", fontSize: "11px" }}>↗</span>
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -94,15 +212,39 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
             <div className="mb-12">
               <h6
                 className="font-mono text-[10px] uppercase tracking-[0.35em] mb-5"
-                style={{ color: "#555555" }}
+                style={{ color: "var(--muted)" }}
               >
                 Press
               </h6>
               <ul className="space-y-3">
-                <li className="font-sans text-[15px]" style={{ color: "#F5F4F0" }}>
-                  External Affairs Lead — SRM techno-cultural fests
+                <li className="font-sans text-[15px]" style={{ color: "var(--fg)" }}>
+                  External Affairs Member, SRM techno-cultural fest
                 </li>
+                <li>Swimmer and Guitarist</li>
               </ul>
+            </div>
+
+            {/* Resume download */}
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "40px" }}>
+              <a
+                href="/RachitRESUME.pdf"
+                download="RachitRESUME.pdf"
+                className="group inline-flex items-center gap-3 transition-opacity hover:opacity-60"
+                style={{ textDecoration: "none" }}
+              >
+                <span
+                  className="font-sans font-light"
+                  style={{ fontSize: "clamp(22px, 3.5vw, 44px)", color: "var(--fg)", letterSpacing: "-0.01em" }}
+                >
+                  Download Resume
+                </span>
+                <span
+                  className="font-mono text-[13px] transition-transform group-hover:translate-y-0.5"
+                  style={{ color: "var(--muted)" }}
+                >
+                  ↓ PDF
+                </span>
+              </a>
             </div>
           </div>
         </motion.div>

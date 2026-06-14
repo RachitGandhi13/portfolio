@@ -37,7 +37,7 @@ export const personalInfo = {
   name: "Rachit Gandhi",
   role: "Full-Stack Developer",
   tagline:
-    "I build production web apps with the MERN stack, Next.js, and TypeScript — with a niche in real-time (WebRTC) and Web3 (Solidity).",
+    "I build production web apps with the MERN stack, Next.js, and TypeScript — with a niche in real-time (WebRTC), Web3 (Solidity), and DevOps (Docker, CI/CD).",
   email: "rachitgandhi7727@gmail.com",
   phone: "+91 7004363366",
   github: "https://github.com/RachitGandhi13",
@@ -65,6 +65,10 @@ export const skills: SkillCategory[] = [
   {
     category: "Real-time",
     items: ["WebRTC", "Socket.io"],
+  },
+  {
+    category: "DevOps",
+    items: ["Docker", "GitHub Actions", "CI/CD", "Vercel", "Linux", "Nginx"],
   },
   {
     category: "Tools",

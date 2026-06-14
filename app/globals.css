@@ -12,17 +12,22 @@
     --white: #F5F4F0;
     --black: #0A0A0A;
     --stroke-color: #F5F4F0;
+    /* rgb channel values for rgba() usage */
+    --fg-rgb: 245, 244, 240;
+    --bg-rgb: 10, 10, 10;
   }
 
   .light {
     --bg: #F5F4F0;
     --fg: #0A0A0A;
     --muted: #888888;
-    --border: #E5E4DF;
-    --surface: #EEECEA;
+    --border: #E0DED9;
+    --surface: #EAEAE6;
     --white: #F5F4F0;
     --black: #0A0A0A;
     --stroke-color: #0A0A0A;
+    --fg-rgb: 10, 10, 10;
+    --bg-rgb: 245, 244, 240;
   }
 
   html {
@@ -115,6 +120,12 @@
   .cube-face-left   { transform: rotateY(-90deg) translateZ(150px); }
   .cube-face-top    { transform: rotateX(90deg) translateZ(150px); }
   .cube-face-bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+  /* Cube: continuous spin independent of scroll */
+  @keyframes cube-rotate {
+    0%   { transform: rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
+    100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(180deg); }
+  }
 
   /* Pulse animation for video conferencing face */
   @keyframes pulse-ring {

@@ -54,7 +54,7 @@ export default function Cursor() {
           y: my,
           translateX: "-50%",
           translateY: "-50%",
-          backgroundColor: "#F5F4F0",
+          backgroundColor: "var(--fg)",
         }}
         animate={{ width: dotSize, height: dotSize }}
         transition={{ duration: 0.15 }}
@@ -68,7 +68,7 @@ export default function Cursor() {
           y: ry,
           translateX: "-50%",
           translateY: "-50%",
-          border: "1px solid #F5F4F0",
+          border: "1px solid var(--fg)",
         }}
         animate={{
           width: ringSize,
@@ -84,7 +84,7 @@ export default function Cursor() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.7 }}
             className="font-mono text-[9px] uppercase tracking-[0.15em]"
-            style={{ color: "#F5F4F0" }}
+            style={{ color: "var(--fg)" }}
           >
             View
           </motion.span>
