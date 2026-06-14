@@ -5,83 +5,83 @@ import { experiences } from "@/data/portfolio";
 
 export default function Experience() {
   return (
-    <section id="experience" className="bg-cream dark:bg-[#0f0b0b] text-ink dark:text-cream">
+    <section id="experience" className="bg-[#0A0A0A] text-cream">
 
-      {/* ── Section header bar ── */}
-      <div className="border-b-2 border-ink dark:border-cream/10 px-6 md:px-10 lg:px-14 py-5 flex items-center justify-between">
-        <div className="flex items-end gap-5">
-          <span
-            className="font-display leading-none text-ink/6 dark:text-cream/6 select-none"
-            style={{ fontSize: "clamp(60px, 10vw, 120px)" }}
-          >
-            02
-          </span>
-          <h2
-            className="font-display uppercase text-ink dark:text-cream mb-1"
-            style={{ fontSize: "clamp(28px, 5vw, 64px)" }}
-          >
-            Experience
-          </h2>
-        </div>
-        <span className="text-[8px] font-mono text-ink/20 dark:text-cream/20 uppercase tracking-[0.5em]">Pg. 03</span>
+      {/* Section label */}
+      <div className="px-6 md:px-10 lg:px-14 pt-20 pb-0 flex items-center gap-4">
+        <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.45em]">02</span>
+        <div className="flex-1 h-px bg-cream/10" />
+        <span className="text-[9px] font-mono text-cream/25 uppercase tracking-[0.45em]">Work</span>
       </div>
 
-      <div className="px-6 md:px-10 lg:px-14 divide-y-2 divide-ink/8 dark:divide-cream/8">
+      <div className="px-6 md:px-10 lg:px-14 mt-16 divide-y divide-cream/8">
         {experiences.map((exp, i) => (
           <motion.div
             key={exp.company}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="group py-14 md:py-16 relative overflow-hidden"
+            transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group py-14 relative overflow-hidden"
           >
-            {/* Huge background index number */}
+            {/* Ghost index */}
             <span
-              className="absolute right-0 top-1/2 -translate-y-1/2 font-display text-ink/4 dark:text-cream/4 select-none pointer-events-none leading-none"
-              style={{ fontSize: "clamp(120px, 20vw, 280px)" }}
+              className="absolute right-0 top-10 font-display text-cream/[0.035] select-none pointer-events-none leading-none"
+              style={{ fontSize: "clamp(100px, 16vw, 220px)" }}
             >
               {String(i + 1).padStart(2, "0")}
             </span>
 
-            {/* Company name — fills width */}
-            <div className="overflow-hidden mb-3">
+            {/* Company */}
+            <div className="overflow-hidden mb-4">
               <motion.h3
-                initial={{ y: "105%" }}
+                initial={{ y: "104%" }}
                 whileInView={{ y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: i * 0.1 + 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className="font-display text-ink dark:text-cream uppercase leading-none relative z-10"
-                style={{ fontSize: "clamp(44px, 8vw, 110px)" }}
+                transition={{ duration: 0.65, delay: i * 0.08 + 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="font-display text-cream uppercase leading-none relative z-10"
+                style={{ fontSize: "clamp(36px, 7vw, 100px)" }}
               >
                 {exp.company}
               </motion.h3>
             </div>
 
-            {/* Role — centered with lines */}
-            <div className="flex items-center gap-4 mb-8 relative z-10">
-              <div className="h-px flex-1 bg-ink/15 dark:bg-cream/15" />
-              <span className="text-[10px] font-mono text-[#E8300A] uppercase tracking-[0.3em] whitespace-nowrap">
+            {/* Meta row */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mb-8 relative z-10">
+              <span className="text-[10px] font-mono text-[#E8300A] uppercase tracking-[0.3em]">
                 {exp.role}
               </span>
-              <div className="h-px flex-1 bg-ink/15 dark:bg-cream/15" />
-              <span className="text-[10px] font-mono text-ink/30 dark:text-cream/30 uppercase tracking-wider whitespace-nowrap">
+              <span className="text-cream/20 text-xs">·</span>
+              <span className="text-[10px] font-mono text-cream/30 uppercase tracking-wider">
                 {exp.period}
+              </span>
+              <span className="text-cream/20 text-xs">·</span>
+              <span className="text-[10px] font-mono text-cream/25 uppercase tracking-wider">
+                {exp.location}
               </span>
             </div>
 
-            {/* Bullets — 2 column */}
-            <ul className="grid md:grid-cols-2 gap-x-10 gap-y-4 relative z-10">
-              {exp.bullets.map((bullet, j) => (
-                <li key={j} className="flex gap-3 text-[13px] text-ink/50 dark:text-cream/50 leading-relaxed">
-                  <span className="mt-[7px] w-[4px] h-[4px] rounded-full bg-[#E8300A] shrink-0" />
-                  {bullet}
-                </li>
+            {/* Bullets */}
+            <ul className="grid md:grid-cols-2 gap-x-12 gap-y-3 relative z-10 max-w-4xl">
+              {exp.bullets.map((b, j) => (
+                <motion.li
+                  key={j}
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: j * 0.07 + 0.2 }}
+                  className="flex gap-3 text-[13px] text-cream/40 leading-relaxed"
+                >
+                  <span className="mt-[8px] shrink-0 w-[3px] h-[3px] rounded-full bg-[#E8300A]" />
+                  {b}
+                </motion.li>
               ))}
             </ul>
           </motion.div>
         ))}
       </div>
+
+      <div className="h-px bg-cream/8 mx-6 md:mx-10 lg:mx-14" />
     </section>
   );
 }

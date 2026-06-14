@@ -2,121 +2,104 @@
 
 import { motion } from "framer-motion";
 import { skills } from "@/data/portfolio";
-import Barcode from "@/components/Barcode";
+import ProfilePhoto from "./ProfilePhoto";
+
+const enter = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
+});
 
 export default function About() {
   return (
     <section id="about" className="bg-ink text-cream">
 
-      {/* ── Section header bar ── */}
-      <div className="border-b-2 border-cream/10 px-6 md:px-10 lg:px-14 py-5 flex items-center justify-between">
-        <div className="flex items-end gap-5">
-          <span
-            className="font-display leading-none text-cream/6 select-none"
-            style={{ fontSize: "clamp(60px, 10vw, 120px)" }}
-          >
-            01
-          </span>
-          <h2
-            className="font-display uppercase text-cream mb-1"
-            style={{ fontSize: "clamp(28px, 5vw, 64px)" }}
-          >
-            About Me
-          </h2>
-        </div>
-        <span className="text-[8px] font-mono text-cream/20 uppercase tracking-[0.5em]">Pg. 02</span>
+      {/* Section label */}
+      <div className="px-6 md:px-10 lg:px-14 pt-20 pb-0 flex items-center gap-4">
+        <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.45em]">01</span>
+        <div className="flex-1 h-px bg-cream/10" />
+        <span className="text-[9px] font-mono text-cream/25 uppercase tracking-[0.45em]">About</span>
       </div>
 
-      <div className="px-6 md:px-10 lg:px-14 py-16 md:py-24">
-        <div className="grid lg:grid-cols-[1fr_1px_1fr] gap-12 lg:gap-0 items-start">
+      {/* Photo + bio */}
+      <div className="grid lg:grid-cols-[1fr_1fr] gap-0 mt-12">
 
-          {/* Left: bio + pull quote */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:pr-14 space-y-8"
+        {/* Left: photo */}
+        <motion.div
+          {...enter(0)}
+          className="relative overflow-hidden"
+          style={{ minHeight: "400px" }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{ filter: "grayscale(1) contrast(1.18) brightness(0.82)" }}
           >
-            {/* Pull quote */}
-            <div className="border-l-[5px] border-[#E8300A] pl-6">
-              <p className="font-display text-cream uppercase leading-tight" style={{ fontSize: "clamp(30px, 4vw, 52px)" }}>
-                "I build things<br />that scale."
-              </p>
-            </div>
-
-            <div className="space-y-4 text-[15px] text-cream/55 leading-relaxed">
-              <p>
-                Final-year B.Tech CSE at{" "}
-                <span className="text-cream font-semibold">SRM University</span>, Chennai.
-                GPA <span className="font-mono text-[#C5FF00] font-bold">8.97/10</span>.
-                I build production-grade apps with the{" "}
-                <span className="text-cream font-semibold">MERN stack</span>, Next.js, and TypeScript.
-              </p>
-              <p>
-                Deep niche in <span className="text-cream font-semibold">real-time systems</span>{" "}
-                (WebRTC, Socket.io) and <span className="text-cream font-semibold">Web3</span>{" "}
-                (Solidity). Shipped for real clients; contributed to production systems at Lions International.
-              </p>
-              <p>
-                Off-keyboard: guitarist, competitive swimmer, External Affairs &amp; Editorial Lead for
-                techno-cultural fests — and the guy everyone asks about fits.
-              </p>
-            </div>
-
-            <p className="font-marker text-[#E8300A] text-xl -rotate-1 inline-block pt-2">
-              fashion icon + coder. yes, both.
+            <ProfilePhoto className="w-full h-full" />
+          </div>
+          {/* Overlay label */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-ink/80 to-transparent">
+            <p className="text-[8px] font-mono text-cream/40 uppercase tracking-[0.45em]">
+              Rachit Gandhi · SRM University · 2026
             </p>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Divider */}
-          <div className="hidden lg:block self-stretch bg-cream/8" />
-
-          {/* Right: tech spec sheet */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:pl-14"
+        {/* Right: bio */}
+        <motion.div
+          {...enter(0.1)}
+          className="px-6 md:px-10 lg:px-14 py-14 flex flex-col justify-center space-y-6"
+        >
+          <p
+            className="font-display text-cream uppercase leading-tight"
+            style={{ fontSize: "clamp(28px, 3.5vw, 48px)" }}
           >
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8 pb-4 border-b border-cream/10">
-              <span className="text-[9px] font-mono text-cream/30 uppercase tracking-[0.4em]">
-                Technical Spec Sheet
-              </span>
-              <Barcode className="w-20 text-cream/20 h-5" />
-            </div>
+            Final-year CS at SRM Chennai.
+          </p>
 
-            <div className="space-y-0">
-              {skills.map((group, i) => (
-                <motion.div
-                  key={group.category}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.07 }}
-                  className="flex gap-6 items-start py-4 border-b border-cream/8 last:border-0"
-                >
-                  <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.25em] whitespace-nowrap pt-[3px] min-w-[80px]">
-                    {group.category}
-                  </span>
-                  <div className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <span
-                        key={item}
-                        className="px-2.5 py-1 text-[11px] font-mono border border-cream/12 text-cream/55 hover:border-[#E8300A]/50 hover:text-cream transition-colors"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+          <div className="space-y-4 text-[14px] text-cream/50 leading-[1.75] max-w-lg" style={{ textAlign: "justify" }}>
+            <p>
+              I build production software — MERN stack, Next.js, TypeScript.
+              Real-time systems with WebRTC and Socket.io. Smart contracts
+              with Solidity. Not side projects that collect dust, but things
+              deployed for real clients.
+            </p>
+            <p>
+              Interned at Lions International working on production MERN
+              systems. Built and shipped a full payment-integrated platform
+              for The Language Salon. GPA 8.97 if that tells you anything.
+            </p>
+            <p>
+              Off the screen: guitarist, competitive swimmer, External Affairs
+              lead at SRM&apos;s techno-cultural fest. Oracle certified.
+              Occasionally the guy everyone asks about fits.
+            </p>
+          </div>
+        </motion.div>
       </div>
+
+      {/* Skills strip */}
+      <motion.div
+        {...enter(0.15)}
+        className="px-6 md:px-10 lg:px-14 py-14 border-t border-cream/8"
+      >
+        <div className="space-y-0 divide-y divide-cream/6">
+          {skills.map((group) => (
+            <div key={group.category} className="flex gap-8 items-baseline py-4">
+              <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.35em] w-24 shrink-0">
+                {group.category}
+              </span>
+              <div className="flex flex-wrap gap-x-5 gap-y-1">
+                {group.items.map((item) => (
+                  <span key={item} className="text-[12px] font-mono text-cream/40 hover:text-cream transition-colors">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }

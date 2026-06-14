@@ -1,85 +1,80 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
+import { X, Menu } from "lucide-react";
 
-const navLinks = [
-  { href: "#about", label: "About", page: "02" },
-  { href: "#experience", label: "Experience", page: "03" },
-  { href: "#projects", label: "Projects", page: "04" },
-  { href: "#education", label: "Education", page: "05" },
-  { href: "#contact", label: "Contact", page: "06" },
+const LEFT = [
+  { href: "#about", label: "About" },
+  { href: "#experience", label: "Work" },
+];
+const RIGHT = [
+  { href: "#projects", label: "Projects" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  const linkClass =
+    "text-[11px] font-mono text-cream/40 hover:text-cream uppercase tracking-[0.25em] transition-colors duration-200";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-cream/92 dark:bg-ink/92 backdrop-blur-md border-b-2 border-ink/15 dark:border-cream/10"
-          : "bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-ink/80 backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <div className="px-6 md:px-10 lg:px-14">
-        <div className="flex items-center justify-between h-14">
-          <a href="#" aria-label="Home" className="font-display text-2xl text-ink dark:text-cream tracking-wider leading-none">
-            RG<span className="text-[#E8300A]">.</span>
-          </a>
+      {/* Desktop — spread nav */}
+      <div className="hidden md:flex items-center justify-between px-8 lg:px-14 py-5">
+        <nav className="flex items-center gap-10">
+          {LEFT.map((l) => (
+            <a key={l.href} href={l.href} className={linkClass}>{l.label}</a>
+          ))}
+        </nav>
 
-          <nav className="hidden md:flex items-center gap-0">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="group relative px-4 py-2 text-[9px] font-mono text-ink/40 dark:text-cream/40 hover:text-ink dark:hover:text-cream uppercase tracking-[0.25em] transition-colors"
-              >
-                <span className="absolute top-1 left-2 text-[7px] text-[#E8300A]/0 group-hover:text-[#E8300A]/60 transition-colors font-mono">
-                  {link.page}
-                </span>
-                {link.label}
-              </a>
-            ))}
-            <div className="ml-4 pl-4 border-l border-ink/15 dark:border-cream/15">
-              <ThemeToggle />
-            </div>
-          </nav>
+        <a href="#" aria-label="Home" className="font-display text-cream text-3xl tracking-widest leading-none">
+          RG<span className="text-[#E8300A]">.</span>
+        </a>
 
-          <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-ink dark:text-cream"
-              aria-label="Toggle menu"
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
+        <nav className="flex items-center gap-10">
+          {RIGHT.map((l) => (
+            <a key={l.href} href={l.href} className={linkClass}>{l.label}</a>
+          ))}
+        </nav>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden bg-cream/98 dark:bg-ink/98 border-t-2 border-ink/10 dark:border-cream/10 backdrop-blur-md">
-          <nav className="flex flex-col px-6 py-4 divide-y divide-ink/8 dark:divide-cream/8">
-            {navLinks.map((link) => (
+      {/* Mobile */}
+      <div className="md:hidden flex items-center justify-between px-6 py-4">
+        <a href="#" className="font-display text-cream text-2xl tracking-widest leading-none">
+          RG<span className="text-[#E8300A]">.</span>
+        </a>
+        <button
+          onClick={() => setOpen(!open)}
+          className="text-cream/60 hover:text-cream transition-colors"
+          aria-label="Menu"
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="md:hidden bg-ink border-t border-cream/8">
+          <nav className="flex flex-col divide-y divide-cream/8 px-6">
+            {[...LEFT, ...RIGHT].map((l) => (
               <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="flex items-center justify-between py-3 text-[10px] font-mono text-ink/50 dark:text-cream/50 hover:text-ink dark:hover:text-cream uppercase tracking-[0.25em] transition-colors"
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="py-4 text-[11px] font-mono text-cream/40 hover:text-cream uppercase tracking-[0.3em] transition-colors"
               >
-                {link.label}
-                <span className="text-[8px] text-[#E8300A]/50">{link.page}</span>
+                {l.label}
               </a>
             ))}
           </nav>

@@ -1,190 +1,140 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ExternalLink } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/portfolio";
 
 export default function Projects() {
   return (
     <section id="projects" className="bg-ink text-cream">
 
-      {/* ── Section header bar ── */}
-      <div className="border-b-2 border-cream/10 px-6 md:px-10 lg:px-14 py-5 flex items-center justify-between">
-        <div className="flex items-end gap-5">
-          <span
-            className="font-display leading-none text-cream/6 select-none"
-            style={{ fontSize: "clamp(60px, 10vw, 120px)" }}
-          >
-            03
-          </span>
-          <div className="mb-1">
-            <h2
-              className="font-display uppercase text-cream leading-none"
-              style={{ fontSize: "clamp(28px, 5vw, 64px)" }}
-            >
-              Projects
-            </h2>
-            <p className="font-marker text-[#E8300A] text-base mt-0.5 -rotate-1 inline-block">
-              currently cooking 👨‍🍳
-            </p>
-          </div>
-        </div>
-        <span className="text-[8px] font-mono text-cream/20 uppercase tracking-[0.5em]">Pg. 04</span>
+      {/* Section label */}
+      <div className="px-6 md:px-10 lg:px-14 pt-20 pb-0 flex items-center gap-4">
+        <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.45em]">03</span>
+        <div className="flex-1 h-px bg-cream/10" />
+        <span className="text-[9px] font-mono text-cream/25 uppercase tracking-[0.45em]">Projects</span>
       </div>
 
-      <div className="divide-y-2 divide-cream/8">
+      <div className="mt-16 divide-y divide-cream/8">
         {projects.map((project, i) => (
           <motion.article
             key={project.title}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="group relative overflow-hidden"
+            transition={{ duration: 0.7, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative overflow-hidden px-6 md:px-10 lg:px-14"
           >
-            {/* ── Project header — full width ── */}
-            <div className="relative px-6 md:px-10 lg:px-14 pt-14 pb-0 overflow-hidden">
-              {/* Ghost number */}
-              <span
-                className="absolute right-6 lg:right-14 top-6 font-display text-cream/4 select-none pointer-events-none leading-none"
-                style={{ fontSize: "clamp(100px, 18vw, 240px)" }}
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
+            {/* Red hover fill */}
+            <div className="absolute inset-0 bg-[#E8300A] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] z-0" />
 
-              {/* Project title */}
-              <div className="overflow-hidden mb-3 relative z-10">
-                <h3
-                  className="font-display text-cream uppercase leading-none"
-                  style={{ fontSize: "clamp(40px, 7vw, 100px)" }}
-                >
-                  {project.title}
-                </h3>
-              </div>
-
-              {/* Role + tech row */}
-              <div className="flex flex-wrap items-center gap-4 mb-8 relative z-10">
-                <div className="flex items-center gap-3">
-                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.35em]">Role</span>
-                  <div className="h-px w-4 bg-cream/20" />
-                  <span className="text-[10px] font-mono text-cream/45 uppercase tracking-wider">Solo — Full Stack</span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tech.map((t) => (
-                    <span key={t} className="px-2 py-0.5 text-[8px] font-mono uppercase tracking-wider bg-cream/6 text-cream/40 border border-cream/10">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center gap-4 ml-auto">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-[10px] font-mono text-cream/35 hover:text-[#E8300A] uppercase tracking-wider transition-colors"
+            <div className="relative z-10 py-14">
+              {/* Header row */}
+              <div className="flex items-start justify-between gap-6 mb-8">
+                <div className="overflow-hidden flex-1">
+                  <motion.h3
+                    initial={{ y: "104%" }}
+                    whileInView={{ y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.65, delay: i * 0.06 + 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-display text-cream group-hover:text-ink uppercase leading-none transition-colors duration-300"
+                    style={{ fontSize: "clamp(32px, 5.5vw, 76px)" }}
                   >
-                    <Github size={12} /> Source
-                  </a>
-                  {project.demo ? (
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-[10px] font-mono text-[#C5FF00] hover:text-cream uppercase tracking-wider transition-colors"
-                    >
-                      <ExternalLink size={12} /> Live
-                    </a>
-                  ) : null}
+                    {project.title}
+                  </motion.h3>
                 </div>
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 mt-2 p-2.5 border border-cream/15 text-cream/35 group-hover:border-ink/40 group-hover:text-ink hover:border-cream hover:text-cream transition-all duration-200"
+                  aria-label="View source"
+                >
+                  <ArrowUpRight size={18} />
+                </a>
               </div>
 
-              {/* Red divider */}
-              <div className="h-[2px] bg-[#E8300A]/30 relative z-10" />
-            </div>
-
-            {/* ── Article body — 3 column layout ── */}
-            <div className="px-6 md:px-10 lg:px-14 pt-10 pb-14 grid md:grid-cols-3 gap-8 md:gap-12">
-
-              {/* Column 1: Problem + Solution */}
-              <div className="md:col-span-1 space-y-7">
-                <div>
-                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-3">
-                    The Problem
+              {/* Tech strip */}
+              <div className="flex flex-wrap gap-2 mb-10">
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="text-[9px] font-mono uppercase tracking-wider px-2.5 py-1
+                      border border-cream/12 text-cream/35
+                      group-hover:border-ink/25 group-hover:text-ink/60
+                      transition-all duration-300"
+                  >
+                    {t}
                   </span>
-                  <p className="text-[13px] text-cream/55 leading-relaxed">
-                    {project.problem}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-3">
-                    The Solution
-                  </span>
-                  <p className="text-[13px] text-cream/55 leading-relaxed">
-                    {project.solution}
-                  </p>
-                </div>
+                ))}
               </div>
 
-              {/* Column 2: Role + Constraint + Trade-off */}
-              <div className="md:col-span-1 space-y-7">
-                <div>
-                  <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-3">
-                    My Role
-                  </span>
-                  <p className="text-[13px] text-cream/55 leading-relaxed">
-                    {project.role}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-3">
-                    Constraints
-                  </span>
-                  <p className="text-[13px] text-cream/55 leading-relaxed">
-                    {project.constraint}
-                  </p>
-                </div>
-                <div className="border-l-[3px] border-[#E8300A] pl-4">
-                  <span className="text-[8px] font-mono text-[#E8300A] uppercase tracking-[0.4em] block mb-2">
-                    Key Trade-off
-                  </span>
-                  <p className="text-[13px] text-cream/55 leading-relaxed italic">
-                    {project.tradeoff}
-                  </p>
-                </div>
-              </div>
+              {/* 3-col article body */}
+              <div className="grid md:grid-cols-3 gap-8 md:gap-12">
 
-              {/* Column 3: Impact */}
-              <div className="md:col-span-1">
-                <span className="text-[8px] font-mono text-cream/25 uppercase tracking-[0.4em] block mb-5">
-                  Impact
-                </span>
-                <ul className="space-y-4">
-                  {project.impact.map((item, j) => (
-                    <motion.li
-                      key={j}
-                      initial={{ opacity: 0, x: 15 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: j * 0.1 + 0.2 }}
-                      className="flex gap-3 text-[13px] text-cream/60 leading-relaxed"
-                    >
-                      <span className="mt-[7px] shrink-0 w-[5px] h-[5px] rounded-full bg-[#E8300A]" />
-                      {item}
-                    </motion.li>
-                  ))}
-                </ul>
+                {/* Col 1: Problem + Solution */}
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-[8px] font-mono text-[#E8300A] group-hover:text-ink/50 uppercase tracking-[0.4em] mb-2.5 transition-colors duration-300">
+                      The Problem
+                    </p>
+                    <p className="text-[13px] text-cream/45 group-hover:text-ink/65 leading-relaxed transition-colors duration-300">
+                      {project.problem}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[8px] font-mono text-[#E8300A] group-hover:text-ink/50 uppercase tracking-[0.4em] mb-2.5 transition-colors duration-300">
+                      What I Built
+                    </p>
+                    <p className="text-[13px] text-cream/45 group-hover:text-ink/65 leading-relaxed transition-colors duration-300">
+                      {project.solution}
+                    </p>
+                  </div>
+                </div>
 
-                {/* Handwritten aside */}
-                {i === 0 && (
-                  <p className="font-marker text-cream/20 text-base mt-8 -rotate-1 inline-block">
-                    built to understand, not to show off.
+                {/* Col 2: Role + Constraints + Trade-off */}
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-[8px] font-mono text-cream/25 group-hover:text-ink/40 uppercase tracking-[0.4em] mb-2.5 transition-colors duration-300">
+                      My Role
+                    </p>
+                    <p className="text-[13px] text-cream/45 group-hover:text-ink/65 leading-relaxed transition-colors duration-300">
+                      {project.role}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-[8px] font-mono text-cream/25 group-hover:text-ink/40 uppercase tracking-[0.4em] mb-2.5 transition-colors duration-300">
+                      Constraints
+                    </p>
+                    <p className="text-[13px] text-cream/45 group-hover:text-ink/65 leading-relaxed transition-colors duration-300">
+                      {project.constraint}
+                    </p>
+                  </div>
+                  <div className="border-l-[2px] border-cream/15 group-hover:border-ink/25 pl-4 transition-colors duration-300">
+                    <p className="text-[8px] font-mono text-cream/25 group-hover:text-ink/40 uppercase tracking-[0.4em] mb-2 transition-colors duration-300">
+                      Trade-off
+                    </p>
+                    <p className="text-[13px] text-cream/40 group-hover:text-ink/60 leading-relaxed italic transition-colors duration-300">
+                      {project.tradeoff}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Col 3: Impact */}
+                <div>
+                  <p className="text-[8px] font-mono text-cream/25 group-hover:text-ink/40 uppercase tracking-[0.4em] mb-5 transition-colors duration-300">
+                    Impact
                   </p>
-                )}
-                {i === 1 && (
-                  <p className="font-marker text-cream/20 text-base mt-8 -rotate-1 inline-block">
-                    no SDK. just raw WebRTC.
-                  </p>
-                )}
+                  <ul className="space-y-4">
+                    {project.impact.map((item, j) => (
+                      <li key={j} className="flex gap-3 text-[13px] text-cream/45 group-hover:text-ink/65 leading-relaxed transition-colors duration-300">
+                        <span className="mt-[8px] shrink-0 w-[3px] h-[3px] rounded-full bg-[#E8300A] group-hover:bg-ink/50 transition-colors duration-300" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </motion.article>
