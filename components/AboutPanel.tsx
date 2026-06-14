@@ -23,8 +23,8 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
           {/* Close button */}
           <button
             onClick={onClose}
-            className="fixed top-6 right-8 z-[801] font-mono text-[20px] leading-none"
-            style={{ color: "var(--fg)", background: "none", border: "none", opacity: 0.6 }}
+            className="fixed top-4 right-5 z-[801] flex items-center justify-center transition-opacity hover:opacity-100"
+            style={{ color: "var(--fg)", background: "none", border: "1px solid var(--border)", borderRadius: 4, opacity: 0.7, width: 56, height: 56, fontSize: 36, lineHeight: 1, cursor: "none" }}
             aria-label="Close about panel"
           >
             ×
