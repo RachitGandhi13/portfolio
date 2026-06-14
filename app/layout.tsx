@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import {
-  Space_Grotesk,
-  Space_Mono,
-  Bebas_Neue,
-  Permanent_Marker,
-} from "next/font/google";
+import { Space_Grotesk, Space_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Cursor from "@/components/Cursor";
 
 const spaceGrotesk = Space_Grotesk({
@@ -26,43 +19,22 @@ const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
   weight: "400",
 });
-const permanentMarker = Permanent_Marker({
-  subsets: ["latin"],
-  variable: "--font-marker",
-  weight: "400",
-});
 
 export const metadata: Metadata = {
   title: "Rachit Gandhi — Full-Stack Developer",
   description:
-    "Portfolio of Rachit Gandhi — Full-Stack Developer specializing in MERN, Next.js, TypeScript, WebRTC, and Web3 (Solidity).",
-  keywords: [
-    "Rachit Gandhi",
-    "Full Stack Developer",
-    "MERN",
-    "Next.js",
-    "TypeScript",
-    "WebRTC",
-    "Solidity",
-  ],
+    "Portfolio of Rachit Gandhi — Full-Stack Developer specializing in MERN, Next.js, TypeScript, WebRTC, and Web3.",
+  keywords: ["Rachit Gandhi", "Full Stack Developer", "MERN", "Next.js", "TypeScript", "WebRTC"],
   authors: [{ name: "Rachit Gandhi" }],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${spaceGrotesk.variable} ${spaceMono.variable} ${bebasNeue.variable} ${permanentMarker.variable} font-sans antialiased`}
-      >
+      <body className={`${spaceGrotesk.variable} ${spaceMono.variable} ${bebasNeue.variable} font-sans antialiased`}>
         <Providers>
           <Cursor />
-          <Navbar />
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>

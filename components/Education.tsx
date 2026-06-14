@@ -5,50 +5,66 @@ import { education, achievements } from "@/data/portfolio";
 
 export default function Education() {
   return (
-    <section id="education" className="bg-cream dark:bg-[#0A0A0A] text-ink dark:text-cream">
+    <section
+      id="education"
+      className="py-24 px-6 md:px-10 lg:px-16 max-w-[1400px] mx-auto"
+      style={{ borderTop: "1px solid var(--border)" }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="flex items-center gap-3 mb-14"
+      >
+        <span className="text-[9px] font-mono text-red uppercase tracking-[0.4em]">04</span>
+        <span className="text-[9px] font-mono uppercase tracking-[0.4em]" style={{ color: "var(--muted)" }}>
+          Education
+        </span>
+        <div className="flex-1 h-px ml-4" style={{ backgroundColor: "var(--border)" }} />
+      </motion.div>
 
-      <div className="px-6 md:px-10 lg:px-14 pt-20 pb-0 flex items-center gap-4">
-        <span className="text-[9px] font-mono text-[#E8300A] uppercase tracking-[0.45em]">04</span>
-        <div className="flex-1 h-px bg-ink/10 dark:bg-cream/10" />
-        <span className="text-[9px] font-mono text-ink/25 dark:text-cream/25 uppercase tracking-[0.45em]">Education</span>
-      </div>
+      <div className="grid md:grid-cols-[1.2fr_1fr] gap-14 md:gap-20">
 
-      <div className="px-6 md:px-10 lg:px-14 mt-16 pb-20 grid lg:grid-cols-[1fr_1px_1fr] gap-12 lg:gap-0">
-
-        {/* Left: education */}
-        <div className="lg:pr-14 divide-y divide-ink/8 dark:divide-cream/8">
+        <div className="space-y-0" style={{ borderTop: "1px solid var(--border)" }}>
           {education.map((edu, i) => (
             <motion.div
               key={edu.institution}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="py-8 first:pt-0 group"
+              transition={{ duration: 0.55, delay: i * 0.1 }}
+              className="group py-7"
+              style={{ borderBottom: "1px solid var(--border)" }}
             >
-              <div className="overflow-hidden mb-2">
-                <h3
-                  className="font-display text-ink dark:text-cream uppercase leading-none group-hover:text-[#E8300A] transition-colors duration-200"
-                  style={{ fontSize: "clamp(24px, 3.5vw, 44px)" }}
-                >
-                  {edu.institution}
-                </h3>
-              </div>
-              <p className="text-[12px] text-ink/40 dark:text-cream/40 mb-3">{edu.degree}</p>
-              <div className="flex flex-wrap gap-x-5 text-[9px] font-mono text-ink/25 dark:text-cream/25 uppercase tracking-wider mb-4">
+              <h3
+                className="font-sans font-semibold mb-2 group-hover:text-red transition-colors duration-200"
+                style={{ fontSize: "clamp(18px, 2vw, 24px)", color: "var(--fg)" }}
+              >
+                {edu.institution}
+              </h3>
+              <p className="text-sm mb-2" style={{ color: "var(--muted)" }}>{edu.degree}</p>
+              <div className="flex flex-wrap gap-3 text-[10px] font-mono uppercase tracking-wider mb-3" style={{ color: "var(--muted)" }}>
                 <span>{edu.location}</span>
                 <span>·</span>
                 <span>{edu.period}</span>
               </div>
               {edu.gpa && (
-                <span className="inline-flex items-center gap-2 text-[11px] font-mono font-bold text-[#C5FF00] border border-[#C5FF00]/25 px-3 py-1">
+                <span
+                  className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-3 py-1 rounded-full"
+                  style={{ color: "#C5FF00", border: "1px solid rgba(197,255,0,0.25)", backgroundColor: "rgba(197,255,0,0.06)" }}
+                >
                   GPA {edu.gpa}
                 </span>
               )}
               {edu.coursework.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 mt-4">
                   {edu.coursework.map((c) => (
-                    <span key={c} className="text-[9px] font-mono text-ink/25 dark:text-cream/25 border border-ink/8 dark:border-cream/8 px-2 py-0.5 uppercase tracking-wider">
+                    <span
+                      key={c}
+                      className="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5"
+                      style={{ color: "var(--muted)", border: "1px solid var(--border)" }}
+                    >
                       {c}
                     </span>
                   ))}
@@ -58,29 +74,27 @@ export default function Education() {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="hidden lg:block bg-ink/8 dark:bg-cream/8" />
-
-        {/* Right: achievements */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="lg:pl-14"
         >
-          <p className="text-[9px] font-mono text-ink/25 dark:text-cream/25 uppercase tracking-[0.45em] mb-8">Also</p>
-          <ul className="space-y-5">
+          <p className="text-[9px] font-mono uppercase tracking-[0.4em] mb-6" style={{ color: "var(--muted)" }}>
+            Beyond code
+          </p>
+          <ul className="space-y-4">
             {achievements.map((item, i) => (
               <motion.li
                 key={i}
-                initial={{ opacity: 0, x: 12 }}
+                initial={{ opacity: 0, x: 10 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.07 }}
-                className="flex gap-4 text-[13px] text-ink/40 dark:text-cream/40 leading-relaxed"
+                className="flex gap-4 text-sm leading-relaxed"
+                style={{ color: "var(--muted)" }}
               >
-                <span className="mt-[8px] shrink-0 w-[3px] h-[3px] rounded-full bg-[#E8300A]" />
+                <span className="mt-[9px] shrink-0 w-[3px] h-[3px] rounded-full bg-red" style={{ opacity: 0.7 }} />
                 {item}
               </motion.li>
             ))}

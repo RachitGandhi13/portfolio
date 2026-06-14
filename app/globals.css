@@ -4,10 +4,21 @@
 
 @layer base {
   :root {
-    --stroke-color: #0D0909;
+    --bg: #F5F4F0;
+    --fg: #111111;
+    --muted: #888888;
+    --border: #E2E0DB;
+    --surface: #E9E7E2;
+    --stroke-color: #111111;
   }
+
   .dark {
-    --stroke-color: #F0E6D6;
+    --bg: #0F0F0F;
+    --fg: #F0EDE8;
+    --muted: #666666;
+    --border: #2A2A2A;
+    --surface: #1A1A1A;
+    --stroke-color: #F0EDE8;
   }
 
   html {
@@ -15,62 +26,39 @@
   }
 
   body {
-    background-color: #F0E6D6;
-    color: #0D0909;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-feature-settings: "ss01", "ss02", "cv01";
   }
 
-  .dark body {
-    background-color: #0D0909;
-    color: #F0E6D6;
+  ::selection {
+    background: #e8300a;
+    color: #f0ede8;
   }
 
-  /* Hide default cursor on fine-pointer (mouse) devices */
+  /* Hide native cursor on mouse devices */
   @media (pointer: fine) {
     *, *::before, *::after {
       cursor: none !important;
     }
   }
-
-  /* Film grain overlay */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9997;
-    opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 180px 180px;
-  }
-
-  ::selection {
-    background: #e8300a;
-    color: #f0e6d6;
-  }
 }
 
 @layer utilities {
-  .btn-sticker {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.625rem 1.25rem;
-    border-width: 2px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.875rem;
-    transition: all 0.15s;
-  }
-
-  .writing-vertical {
-    writing-mode: vertical-rl;
-  }
-
-  /* Outline name text — stroke color flips with theme */
-  .outline-name {
-    -webkit-text-stroke: 2.5px var(--stroke-color);
+  .outline-text {
+    -webkit-text-stroke: 1.5px var(--stroke-color);
     color: transparent;
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+
+  .bg-surface {
+    background-color: var(--surface);
+  }
+
+  .border-line {
+    border-color: var(--border);
   }
 }
