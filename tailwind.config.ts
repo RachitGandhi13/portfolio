@@ -10,22 +10,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-space-mono)", "monospace"],
-        display: ["var(--font-bebas)", "sans-serif"],
+        italic: ["var(--font-cormorant)", "serif"],
       },
       colors: {
         paper: "#F5F4F0",
-        dark: "#111111",
-        muted: "#888888",
-        surface: "#E9E7E2",
-        red: "#E8300A",
+        dark: "#0A0A0A",
+        muted: "#555555",
+        surface: "#141414",
         cream: "#F0EDE8",
-        ink: "#111111",
-        neon: "#C5FF00",
+        ink: "#0A0A0A",
+        white: "#F5F4F0",
       },
       animation: {
         "spin-slow": "spin 12s linear infinite",
+        "marquee": "marquee-scroll 20s linear infinite",
+        "marquee-rev": "marquee-scroll 20s linear infinite reverse",
       },
     },
   },
