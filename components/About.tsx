@@ -64,7 +64,7 @@ export default function About() {
 
           {/* Experiences */}
           <motion.div {...up(0.2)}>
-            <p className="section-label mb-5">###### Experiences</p>
+            <p className="section-label mb-5">Experiences</p>
             <div className="space-y-0" style={{ borderTop: "1px solid var(--border)" }}>
               {experiences.map((e) => (
                 <div
@@ -95,7 +95,7 @@ export default function About() {
 
           {/* Recognitions */}
           <motion.div {...up(0.25)}>
-            <p className="section-label mb-5">###### Recognitions</p>
+            <p className="section-label mb-5">Recognitions</p>
             <ul className="space-y-2">
               {recognitions.map((r) => (
                 <li key={r} className="flex items-center gap-3 text-[13px]" style={{ color: "var(--muted)" }}>
@@ -108,7 +108,7 @@ export default function About() {
 
           {/* Beyond code */}
           <motion.div {...up(0.3)}>
-            <p className="section-label mb-5">###### Beyond code</p>
+            <p className="section-label mb-5">Beyond code</p>
             <ul className="space-y-2">
               {extras.map((x) => (
                 <li key={x} className="flex items-center gap-3 text-[13px]" style={{ color: "var(--muted)" }}>

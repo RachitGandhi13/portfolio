@@ -87,7 +87,7 @@ export default function ServicesSection() {
           viewport={{ once: true, margin: "0px 0px -40px 0px" }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1
+          <h2
             className="font-display font-bold leading-none"
             style={{ fontSize: "clamp(48px, 8vw, 120px)", color: "var(--fg)" }}
           >
@@ -101,7 +101,7 @@ export default function ServicesSection() {
               o
             </span>
             jects
-          </h1>
+          </h2>
         </motion.div>
 
         {/* Sticky sub-header */}

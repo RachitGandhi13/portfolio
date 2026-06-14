@@ -1,97 +1,113 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
+import { useTheme } from "next-themes";
 
 type CursorMode = "default" | "hover" | "view";
 
+// 0=transparent 1=dark-outline 2=fill 3=highlight
+const MAP = [
+  [1],
+  [1,3,1],
+  [1,3,2,1],
+  [1,3,2,2,1],
+  [1,3,2,2,2,1],
+  [1,3,2,2,2,2,1],
+  [1,3,2,2,2,2,2,1],
+  [1,3,2,2,2,2,2,2,1],
+  [1,3,3,2,2,2,2,2,2,1],
+  [1,2,2,2,2,2,1,1,1,1],
+  [1,2,2,2,1],
+  [1,2,2,1],
+  [1,2,1],
+  [1,1],
+];
+
+const P = 3; // px per pixel block
+const W = 10 * P;
+const H = MAP.length * P;
+
+function PixelArrow({ fill, hi, outline }: { fill: string; hi: string; outline: string }) {
+  const rects: React.ReactNode[] = [];
+  MAP.forEach((row, r) => {
+    row.forEach((v, c) => {
+      if (v === 0) return;
+      const color = v === 1 ? outline : v === 3 ? hi : fill;
+      rects.push(
+        <rect key={`${r}-${c}`} x={c * P} y={r * P} width={P} height={P} fill={color} />
+      );
+    });
+  });
+  return (
+    <svg
+      width={W}
+      height={H}
+      viewBox={`0 0 ${W} ${H}`}
+      shapeRendering="crispEdges"
+      style={{ display: "block" }}
+    >
+      {rects}
+    </svg>
+  );
+}
+
 export default function Cursor() {
-  const mx = useMotionValue(-200);
-  const my = useMotionValue(-200);
-  const rx = useSpring(mx, { stiffness: 600, damping: 30, mass: 0.4 });
-  const ry = useSpring(my, { stiffness: 600, damping: 30, mass: 0.4 });
+  const mx = useMotionValue(-400);
+  const my = useMotionValue(-400);
   const [mode, setMode] = useState<CursorMode>("default");
+  const { resolvedTheme } = useTheme();
+
+  const isDark = resolvedTheme === "dark";
+  const fill    = isDark ? "#e8ff00" : "#80973f";
+  const hi      = isDark ? "#f5ff80" : "#a8c255";
+  const outline = isDark ? "#1a1a00" : "#1a2a0a";
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      mx.set(e.clientX);
-      my.set(e.clientY);
-    };
+    const move = (e: MouseEvent) => { mx.set(e.clientX); my.set(e.clientY); };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, [mx, my]);
 
   useEffect(() => {
-    const handleEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const cursorEl = target.closest("[data-cursor]") as HTMLElement | null;
-      if (cursorEl?.dataset.cursor === "View") {
-        setMode("view");
-      } else if (target.closest("a, button")) {
-        setMode("hover");
-      }
+    const enter = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      if ((t.closest("[data-cursor]") as HTMLElement | null)?.dataset.cursor === "View") setMode("view");
+      else if (t.closest("a, button")) setMode("hover");
     };
-    const handleLeave = () => setMode("default");
-
-    document.addEventListener("mouseover", handleEnter);
-    document.addEventListener("mouseout", handleLeave);
-    return () => {
-      document.removeEventListener("mouseover", handleEnter);
-      document.removeEventListener("mouseout", handleLeave);
-    };
+    const leave = () => setMode("default");
+    document.addEventListener("mouseover", enter);
+    document.addEventListener("mouseout", leave);
+    return () => { document.removeEventListener("mouseover", enter); document.removeEventListener("mouseout", leave); };
   }, []);
 
-  const ringSize = mode === "view" ? 88 : mode === "hover" ? 48 : 36;
-  const dotSize = mode !== "default" ? 0 : 5;
-
   return (
-    <>
-      {/* Dot — raw mouse, instant */}
-      <motion.div
-        className="pointer-events-none fixed z-[9999] rounded-full"
-        style={{
-          x: mx,
-          y: my,
-          translateX: "-50%",
-          translateY: "-50%",
-          backgroundColor: "var(--fg)",
-        }}
-        animate={{ width: dotSize, height: dotSize, opacity: dotSize ? 1 : 0 }}
-        transition={{ duration: 0.08 }}
-      />
-
-      {/* Ring — spring-lagged */}
-      <motion.div
-        className="pointer-events-none fixed z-[9998] rounded-full flex items-center justify-center"
-        style={{
-          x: rx,
-          y: ry,
-          translateX: "-50%",
-          translateY: "-50%",
-          border: "1px solid var(--fg)",
-        }}
-        animate={{
-          width: ringSize,
-          height: ringSize,
-          opacity: mode === "default" ? 0.25 : 0.85,
-          scale: mode === "hover" ? 1.1 : 1,
-          backgroundColor: mode === "view" ? "rgba(245,244,240,0.07)" : "transparent",
-        }}
-        transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {mode === "view" && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.6 }}
-            transition={{ duration: 0.15 }}
-            className="font-mono text-[9px] uppercase tracking-[0.15em]"
-            style={{ color: "var(--fg)" }}
-          >
-            View
-          </motion.span>
-        )}
-      </motion.div>
-    </>
+    <motion.div
+      className="pointer-events-none fixed z-[9999]"
+      style={{ x: mx, y: my }}
+      animate={{ scale: mode !== "default" ? 1.2 : 1 }}
+      transition={{ duration: 0.12, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <PixelArrow fill={fill} hi={hi} outline={outline} />
+      {mode === "view" && (
+        <motion.span
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{
+            position: "absolute",
+            top: H + 2,
+            left: 4,
+            fontFamily: "monospace",
+            fontSize: "9px",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: fill,
+            whiteSpace: "nowrap",
+          }}
+        >
+          view
+        </motion.span>
+      )}
+    </motion.div>
   );
 }

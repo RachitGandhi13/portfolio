@@ -42,7 +42,7 @@ export const personalInfo = {
   phone: "+91 7004363366",
   github: "https://github.com/RachitGandhi13",
   linkedin: "https://linkedin.com/in/rachitgandhi13",
-  resumePath: "/resume.pdf",
+  resumePath: "/RachitRESUME.pdf",
 } as const;
 
 export const skills: SkillCategory[] = [

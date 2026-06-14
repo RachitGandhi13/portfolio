@@ -58,7 +58,7 @@ export default function Navbar({ onAboutOpen }: NavbarProps) {
             padding: 0,
           }}
         >
-          Rachit Gandhi
+          RG
         </button>
 
         {/* Desktop links */}

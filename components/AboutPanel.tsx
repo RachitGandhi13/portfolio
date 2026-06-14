@@ -18,7 +18,7 @@ export default function AboutPanel({ isOpen, onClose }: AboutPanelProps) {
           exit={{ opacity: 0, y: "4%" }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[800] overflow-y-auto"
-          style={{ backgroundColor: "var(--bg)", color: "var(--fg)" }}
+          style={{ backgroundColor: "var(--bg)", color: "var(--fg)", ['--muted' as string]: 'rgba(var(--fg-rgb), 0.62)' }}
         >
           {/* Close button */}
           <button
