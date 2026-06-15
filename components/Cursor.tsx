@@ -56,7 +56,12 @@ export default function Cursor() {
   const mx = useMotionValue(-400);
   const my = useMotionValue(-400);
   const [mode, setMode] = useState<CursorMode>("default");
+  const [isPointerFine, setIsPointerFine] = useState(false);
   const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setIsPointerFine(window.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   const isDark = resolvedTheme === "dark";
   const fill    = isDark ? "#e8ff00" : "#80973f";
@@ -81,8 +86,11 @@ export default function Cursor() {
     return () => { document.removeEventListener("mouseover", enter); document.removeEventListener("mouseout", leave); };
   }, []);
 
+  if (!isPointerFine) return null;
+
   return (
     <motion.div
+      data-cursor-root
       className="pointer-events-none fixed z-[9999]"
       style={{ x: mx, y: my }}
       animate={{ scale: mode !== "default" ? 1.2 : 1 }}

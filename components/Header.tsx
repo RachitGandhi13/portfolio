@@ -99,8 +99,9 @@ export default function Header() {
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <div style={{ position: "relative", display: "inline-block" }}>
 
-          {/* Cap sits on top of R — tilted slightly left, pivot at bottom-right */}
+          {/* Cap sits on top of R — hidden on xs, visible sm+ */}
           <div
+            className="hidden lg:block"
             style={{
               position: "absolute",
               bottom: "79%",
@@ -134,7 +135,9 @@ export default function Header() {
         >
           Developer —
         </span>
-        <div className="flex items-center gap-5">
+
+        {/* Socials — hidden on mobile, shown md+ */}
+        <div className="hidden md:flex items-center gap-5">
           {[
             { label: "GitHub",   href: "https://github.com/RachitGandhi13" },
             { label: "LinkedIn", href: "https://linkedin.com/in/rachitgandhi13" },
@@ -152,6 +155,7 @@ export default function Header() {
             </a>
           ))}
         </div>
+
         <span
           className="font-mono text-[11px] uppercase tracking-[0.08em]"
           style={{ color: "var(--fg)", opacity: 0.7 }}

@@ -50,6 +50,11 @@
       cursor: none !important;
     }
   }
+
+  @media (pointer: coarse) {
+    a, button { cursor: pointer !important; }
+    [data-cursor-root] { display: none !important; }
+  }
 }
 
 @layer utilities {
