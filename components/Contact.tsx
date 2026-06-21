@@ -64,11 +64,10 @@ export default function Contact() {
             <span className="font-mono-label text-[#A87D5C] dark:text-[#E8E4D9]">05 — Contact</span>
           </div>
           <h2 className="font-display font-medium tracking-tighter text-[#0a0a0a] dark:text-white text-5xl md:text-7xl lg:text-[112px] leading-[0.92] max-w-6xl mb-20 md:mb-28">
-            Let&apos;s build something{" "}
+            Got a complex problem.{" "}
             <span className="font-serif-italic text-[#A87D5C] dark:text-[#E8E4D9]">
-              production-ready
+              Let&apos;s simplify it.
             </span>
-            .
           </h2>
         </motion.div>
 

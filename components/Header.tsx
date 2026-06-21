@@ -109,8 +109,9 @@ export default function Header() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1.1 }}
             className="md:col-span-5 lg:col-span-4 text-white/50 text-[15px] md:text-[16px] leading-relaxed font-light max-w-md"
           >
-            Full-stack developer and DevOps engineer. MERN, Next.js, TypeScript.
-            AI-integrated platforms, production infrastructure, Web3. Based in Chennai, IN.
+            Full-stack engineer building highly available, cost-effective systems.
+            Next.js, Node.js, PostgreSQL, WebRTC, DevOps. Gen AI and agentic workflows.
+            Based in Chennai, IN.
           </motion.p>
 
           <motion.div
@@ -139,7 +140,7 @@ export default function Header() {
         <div className="mt-16 md:mt-24 flex items-end justify-between border-t border-white/10 pt-6">
           <div className="flex gap-10 md:gap-16">
             {[
-              { label: "Stack", value: "MERN", bronze: false },
+              { label: "Stack", value: "Next.js / Node", bronze: false },
               { label: "Based in", value: "Chennai, IN", bronze: false },
               { label: "Availability", value: "Open", bronze: true },
             ].map((s) => (

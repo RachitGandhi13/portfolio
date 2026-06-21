@@ -87,15 +87,17 @@ export default function About() {
               className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-10 lg:gap-14"
             >
               <p className="text-black/70 dark:text-white/70 leading-relaxed text-[15px] md:text-[16px] font-light">
-                I&apos;m a full-stack developer focused on production-grade web
-                applications. I work with the MERN stack, TypeScript, WebRTC for
-                real-time systems, and Solidity for Web3. Studying B.Tech
-                Computer Science at SRM University, Chennai.
+                I help engineering teams tackle architectural bottlenecks and
+                build highly available, cost-effective systems. My background
+                spans high-traffic EdTech platforms, sub-200ms real-time video
+                networks, and open-source contributions. B.Tech CS at SRM
+                University, Chennai.
               </p>
               <p className="text-black/70 dark:text-white/70 leading-relaxed text-[15px] md:text-[16px] font-light">
-                I take projects from idea to deployment, handling architecture,
-                APIs, frontend, and DevOps with Docker and CI/CD. Every system I
-                build is made to last and scale under real conditions.
+                Stack: Next.js, Node.js, PostgreSQL, WebRTC, and modern DevOps
+                tooling. Lately focused on Generative AI and agentic workflows
+                to power smarter applications. Open to Full-Stack DevOps roles,
+                open-source collaborations, and AI-driven projects.
               </p>
             </Reveal>
 
