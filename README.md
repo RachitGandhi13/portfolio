@@ -1,16 +1,15 @@
 # Rachit Gandhi — Portfolio
 
-Personal portfolio website built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**.
+Personal portfolio website built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
 ## Stack
 
 | Layer | Tech |
 |---|---|
-| Framework | Next.js 15 (App Router) |
+| Framework | Next.js (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS |
 | Animations | Framer Motion |
-| Icons | Lucide React |
 | Theming | next-themes (dark / light) |
 | Deployment | Vercel |
 
@@ -18,25 +17,25 @@ Personal portfolio website built with **Next.js 15**, **TypeScript**, and **Tail
 
 ```
 ├── app/
-│   ├── globals.css       # Tailwind base + custom utilities
-│   ├── layout.tsx        # Root layout — fonts, metadata, Providers
-│   └── page.tsx          # Assembles all sections
+│   ├── globals.css         # Tailwind base + custom utilities (CSS vars, marquee, grain)
+│   ├── layout.tsx          # Root layout — fonts, metadata, ThemeProvider
+│   └── page.tsx            # Assembles all sections
 ├── components/
-│   ├── Navbar.tsx        # Sticky nav with mobile menu + theme toggle
-│   ├── Hero.tsx          # Full-height hero with CTA buttons
-│   ├── About.tsx         # Bio + skill tags
-│   ├── Experience.tsx    # Work history cards
-│   ├── Projects.tsx      # Project cards with tech badges
-│   ├── Education.tsx     # Education + achievements
-│   ├── Contact.tsx       # Contact links
-│   ├── Footer.tsx        # Footer with social icons
-│   ├── ThemeToggle.tsx   # Sun / Moon toggle
-│   ├── SectionHeader.tsx # Reusable numbered section header
-│   └── Providers.tsx     # next-themes ThemeProvider wrapper
-├── data/
-│   └── portfolio.ts      # All content — edit here, not in components
+│   ├── Providers.tsx       # next-themes ThemeProvider wrapper
+│   ├── Navbar.tsx          # Sticky nav — mobile menu, theme toggle, resume download
+│   ├── Header.tsx          # Full-height hero with parallax background
+│   ├── About.tsx           # Bio, portrait, stats
+│   ├── Projects.tsx        # 4 featured projects with parallax image cards
+│   ├── ServicesSection.tsx # Skill groups + marquee
+│   ├── Experience.tsx      # Timeline + achievements sidebar
+│   ├── Contact.tsx         # Contact form + direct links
+│   └── Footer.tsx          # Footer
 └── public/
-    └── resume.pdf        # Drop your resume PDF here
+    ├── RachitRESUME.pdf    # Resume (linked from navbar)
+    ├── profile.jpg         # Portrait used in About
+    ├── d2c.png             # D2C Campaign Engine project image
+    ├── drawApp.png         # Inkboard project image
+    └── videoCall.png       # Aurora Connect project image
 ```
 
 ## Local development
@@ -47,42 +46,30 @@ npm run dev
 # open http://localhost:3000
 ```
 
-## Adding your resume
-
-Drop your PDF into `public/resume.pdf`. The "Resume" button in the Hero links to `/resume.pdf` automatically.
-
 ## Updating content
 
-All data lives in `data/portfolio.ts`. Edit `personalInfo`, `skills`, `experiences`, `projects`, `education`, or `achievements` — components re-render automatically.
+All content is inline in each component — edit the relevant file directly:
+
+| What | File |
+|---|---|
+| Hero text / description | `components/Header.tsx` |
+| About bio / stats | `components/About.tsx` |
+| Projects | `components/Projects.tsx` |
+| Skills | `components/ServicesSection.tsx` |
+| Experience / education | `components/Experience.tsx` |
+| Contact / socials | `components/Contact.tsx` |
+
+## Resume
+
+Replace `public/RachitRESUME.pdf` with your updated PDF — the navbar download link picks it up automatically.
 
 ## Deploy to Vercel
 
-### Option A — Vercel CLI (fastest)
-
-```bash
-npm i -g vercel
-vercel          # follow the prompts; Vercel auto-detects Next.js
-```
-
-### Option B — GitHub → Vercel dashboard
-
-```bash
-# 1. Create a new repo on github.com, then:
-git init
-git add .
-git commit -m "Initial commit — portfolio"
-git remote add origin https://github.com/<your-username>/<repo-name>.git
-git push -u origin main
-
-# 2. Go to vercel.com → New Project → import the repo
-# 3. Leave all settings at their defaults and click Deploy
-```
-
-Vercel will give you a `.vercel.app` URL immediately.
+Push to GitHub, then import the repo at vercel.com → New Project. Vercel auto-detects Next.js — leave all settings at defaults and click Deploy.
 
 ## Lint & type-check
 
 ```bash
 npm run lint
-npm run build   # also runs tsc
+npm run build
 ```

@@ -1,123 +1,123 @@
 "use client";
 
-import { motion } from "framer-motion";
-import ProfilePhoto from "./ProfilePhoto";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const up = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] },
-});
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      initial={{ y: 40, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 1 }}
+      viewport={{ once: true, margin: "-10% 0px" }}
+      transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
-const experiences = [
-  { company: "The Language Salon", role: "Full-Stack Developer", period: "Feb — Mar '26", location: "Remote" },
-  { company: "Lions International", role: "Software Developer Intern", period: "May — Jul '25", location: "India" },
-];
-
-const recognitions = [
-  "Oracle Certified Foundations Associate",
-  "NPTEL — Programming in Java",
-  "DBMS Certification (Scaler)",
-  "GPA 8.97 / 10",
-];
-
-const extras = [
-  "External Affairs & Editorial Lead at SRM techno-cultural fests",
-  "Competitive swimmer & guitarist",
-  "Final-year Computer Science at SRM University, Chennai",
+const stats = [
+  { value: "2+", label: "Years Building" },
+  { value: "MERN", label: "Core Stack" },
+  { value: "9.0", label: "GPA at SRM" },
 ];
 
 export default function About() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+
   return (
     <section
+      ref={ref}
       id="about"
-      className="px-6 md:px-10 lg:px-16 py-20"
-      style={{ borderTop: "1px solid var(--border)" }}
+      className="relative bg-[#F5F4F0] dark:bg-[#0a0a0a] py-32 md:py-48 lg:py-56 overflow-hidden"
     >
-      <div className="grid md:grid-cols-[1fr_1.2fr] gap-14 md:gap-24">
-
-        {/* Left: photo */}
-        <motion.div {...up(0.1)}>
-          <div
-            className="aspect-[3/4] overflow-hidden"
-            style={{ backgroundColor: "var(--surface)" }}
-          >
-            <div style={{ filter: "grayscale(1) contrast(1.05) brightness(0.9)" }} className="w-full h-full">
-              <ProfilePhoto className="w-full h-full object-cover" />
-            </div>
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16">
+        {/* Section label */}
+        <Reveal>
+          <div className="flex items-center gap-3 mb-16 md:mb-24">
+            <span className="h-px w-10 bg-[#A87D5C]" />
+            <span className="font-mono-label text-[#A87D5C] dark:text-[#E8E4D9]">01 — About</span>
           </div>
-        </motion.div>
+        </Reveal>
 
-        {/* Right: bio + experiences + recognitions */}
-        <div className="space-y-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 lg:gap-24 items-start">
+          {/* Portrait column */}
+          <div className="md:col-span-5 lg:col-span-5 order-1">
+            <Reveal delay={0.1}>
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#EAEAE6] dark:bg-[#111]">
+                <motion.img
+                  src="/profile.jpg"
+                  alt="Rachit Gandhi"
+                  style={{ y: portraitY, scale: portraitScale, willChange: "transform" }}
+                  className="w-full h-full object-cover grayscale-[15%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#F5F4F0]/60 dark:from-[#0a0a0a]/40 via-transparent to-transparent" />
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="font-mono-label text-black/40 dark:text-white/40">
+                  Rachit G., 2026
+                </span>
+                <span className="font-mono-label text-[#A87D5C]">N° 001</span>
+              </div>
+            </Reveal>
+          </div>
 
-          {/* Bio */}
-          <motion.div {...up(0.15)}>
-            <p className="text-sm leading-[1.85]" style={{ color: "var(--muted)" }}>
-              I design & build web applications with a passion for
-              production-quality engineering. MERN stack, real-time
-              systems with WebRTC, smart contracts with Solidity — and
-              whatever else the problem actually needs.
-            </p>
-          </motion.div>
+          {/* Text column */}
+          <div className="md:col-span-7 lg:col-span-7 order-2 md:pt-12">
+            <Reveal delay={0.15}>
+              <h2 className="font-display font-medium tracking-tighter text-[#0a0a0a] dark:text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.98]">
+                A developer built on{" "}
+                <span className="font-serif-italic text-[#A87D5C] dark:text-[#E8E4D9]">craft</span>
+                , code, and shipping real systems.
+              </h2>
+            </Reveal>
 
-          {/* Experiences */}
-          <motion.div {...up(0.2)}>
-            <p className="section-label mb-5">Experiences</p>
-            <div className="space-y-0" style={{ borderTop: "1px solid var(--border)" }}>
-              {experiences.map((e) => (
-                <div
-                  key={e.company}
-                  className="flex items-start justify-between gap-4 py-4"
-                  style={{ borderBottom: "1px solid var(--border)" }}
-                >
-                  <div>
-                    <p className="text-[13px] font-medium" style={{ color: "var(--fg)" }}>
-                      {e.company}
-                    </p>
-                    <p className="text-[11px] font-mono mt-0.5" style={{ color: "var(--muted)" }}>
-                      {e.role}
-                    </p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className="text-[11px] font-mono italic" style={{ color: "var(--muted)" }}>
-                      {e.period}
-                    </p>
-                    <p className="text-[10px] font-mono mt-0.5" style={{ color: "var(--muted)" }}>
-                      {e.location}
-                    </p>
-                  </div>
+            <Reveal
+              delay={0.2}
+              className="mt-12 md:mt-16 grid grid-cols-1 sm:grid-cols-2 gap-10 lg:gap-14"
+            >
+              <p className="text-black/70 dark:text-white/70 leading-relaxed text-[15px] md:text-[16px] font-light">
+                I&apos;m a full-stack developer focused on production-grade web
+                applications. I work with the MERN stack, TypeScript, WebRTC for
+                real-time systems, and Solidity for Web3. Studying B.Tech
+                Computer Science at SRM University, Chennai.
+              </p>
+              <p className="text-black/70 dark:text-white/70 leading-relaxed text-[15px] md:text-[16px] font-light">
+                I take projects from idea to deployment, handling architecture,
+                APIs, frontend, and DevOps with Docker and CI/CD. Every system I
+                build is made to last and scale under real conditions.
+              </p>
+            </Reveal>
+
+            <Reveal
+              delay={0.3}
+              className="mt-16 md:mt-24 grid grid-cols-3 gap-6 border-t border-black/10 dark:border-white/10 pt-10"
+            >
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <p className="font-display text-3xl md:text-5xl text-[#0a0a0a] dark:text-white tracking-tighter">
+                    {s.value}
+                  </p>
+                  <p className="font-mono-label text-black/45 dark:text-white/45 mt-3">{s.label}</p>
                 </div>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Recognitions */}
-          <motion.div {...up(0.25)}>
-            <p className="section-label mb-5">Recognitions</p>
-            <ul className="space-y-2">
-              {recognitions.map((r) => (
-                <li key={r} className="flex items-center gap-3 text-[13px]" style={{ color: "var(--muted)" }}>
-                  <span className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: "var(--muted)" }} />
-                  {r}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Beyond code */}
-          <motion.div {...up(0.3)}>
-            <p className="section-label mb-5">Beyond code</p>
-            <ul className="space-y-2">
-              {extras.map((x) => (
-                <li key={x} className="flex items-center gap-3 text-[13px]" style={{ color: "var(--muted)" }}>
-                  <span className="w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: "var(--muted)" }} />
-                  {x}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            </Reveal>
+          </div>
         </div>
       </div>
     </section>

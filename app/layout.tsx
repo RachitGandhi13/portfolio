@@ -1,24 +1,25 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Mono, Cormorant_Garamond } from "next/font/google";
-import "./globals.css";
+import { Inter, Playfair_Display, Space_Mono } from "next/font/google";
 import { Providers } from "@/components/Providers";
-import Cursor from "@/components/Cursor";
+import "./globals.css";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
-  weight: ["300", "400", "500", "700"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600"],
 });
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  style: ["italic"],
+  weight: ["400", "500"],
+});
+
 const spaceMono = Space_Mono({
   subsets: ["latin"],
   variable: "--font-space-mono",
-  weight: ["400", "700"],
-});
-const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
-  variable: "--font-cormorant",
-  weight: ["400", "500", "600"],
-  style: ["italic"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -32,11 +33,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${dmSans.variable} ${spaceMono.variable} ${cormorantGaramond.variable} font-sans antialiased`}>
-        <Providers>
-          <Cursor />
-          {children}
-        </Providers>
+      <body
+        className={`${inter.variable} ${playfair.variable} ${spaceMono.variable} antialiased`}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

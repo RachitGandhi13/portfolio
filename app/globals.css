@@ -3,34 +3,33 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light mode (default) */
   :root {
     --bg: #F5F4F0;
-    --fg: #0A0A0A;
-    --muted: #888888;
-    --border: #E0DED9;
-    --surface: #EAEAE6;
-    --white: #F5F4F0;
-    --black: #0A0A0A;
-    --stroke-color: #0A0A0A;
+    --fg: #0a0a0a;
     --fg-rgb: 10, 10, 10;
     --bg-rgb: 245, 244, 240;
+    --surface: #EAEAE6;
+    --bronze: #A87D5C;
+    --cream: #A87D5C;
   }
 
+  /* Dark mode */
   .dark {
-    --bg: #0A0A0A;
-    --fg: #F5F4F0;
-    --muted: #555555;
-    --border: #1E1E1E;
-    --surface: #141414;
-    --white: #F5F4F0;
-    --black: #0A0A0A;
-    --stroke-color: #F5F4F0;
-    --fg-rgb: 245, 244, 240;
+    --bg: #0a0a0a;
+    --fg: #ffffff;
+    --fg-rgb: 255, 255, 255;
     --bg-rgb: 10, 10, 10;
+    --surface: #111111;
+    --bronze: #A87D5C;
+    --cream: #E8E4D9;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* Momentum scrolling on iOS/Safari */
+    -webkit-overflow-scrolling: touch;
   }
 
   body {
@@ -38,139 +37,97 @@
     color: var(--fg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Only transition colour properties — avoids triggering layout */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Prevent scroll anchoring from fighting smooth scroll */
+    overflow-anchor: none;
   }
 
   ::selection {
     background: var(--fg);
     color: var(--bg);
   }
-
-  @media (pointer: fine) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
-  }
-
-  @media (pointer: coarse) {
-    a, button { cursor: pointer !important; }
-    [data-cursor-root] { display: none !important; }
-  }
 }
 
 @layer utilities {
-  /* Marquee animations */
+  .font-serif-italic {
+    font-style: italic;
+  }
+
+  .font-mono-label {
+    font-family: var(--font-space-mono), monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+  }
+
+  /* Marquee — GPU composited, never triggers paint */
   @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
   }
 
   .marquee-track {
     display: flex;
     white-space: nowrap;
-    animation: marquee-scroll 20s linear infinite;
+    animation: marquee-scroll 30s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
-  .marquee-track-rev {
-    display: flex;
-    white-space: nowrap;
-    animation: marquee-scroll 20s linear infinite reverse;
-  }
-
-  /* Outline text */
-  .outline-text {
-    -webkit-text-stroke: 1px var(--stroke-color);
-    color: transparent;
-  }
-
-  /* Hover stagger — 2 stacked text items, reveals second on hover */
-  .hover-stagger {
-    overflow: hidden;
-    height: 1.2em;
-    display: block;
-  }
-
-  .hover-stagger-inner {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-  }
-
-  .group:hover .hover-stagger-inner {
-    transform: translateY(-50%);
-  }
-
-  /* 3D Cube */
-  .cube-scene {
-    perspective: 1200px;
-    perspective-origin: center center;
-  }
-
-  .cube {
-    transform-style: preserve-3d;
+  /* Grain overlay — static, isolated layer so it never repaints */
+  .grain-overlay {
     position: relative;
   }
-
-  .cube-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  .grain-overlay::after {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: auto;
     backface-visibility: hidden;
-    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
   }
 
-  .cube-face-front  { transform: translateZ(150px); }
-  .cube-face-back   { transform: rotateY(180deg) translateZ(150px); }
-  .cube-face-right  { transform: rotateY(90deg) translateZ(150px); }
-  .cube-face-left   { transform: rotateY(-90deg) translateZ(150px); }
-  .cube-face-top    { transform: rotateX(90deg) translateZ(150px); }
-  .cube-face-bottom { transform: rotateX(-90deg) translateZ(150px); }
-
-  /* Cube: continuous spin independent of scroll */
-  @keyframes cube-rotate {
-    0%   { transform: rotateX(0deg)   rotateY(0deg)   rotateZ(0deg); }
-    100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(180deg); }
+  /* Lux button base */
+  .lux-button {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .lux-button:hover {
+    background-color: rgba(var(--fg-rgb), 0.05);
+  }
+  .lux-button-bronze:hover {
+    background-color: rgba(168, 125, 92, 0.1);
   }
 
-  /* Pulse animation for video conferencing face */
-  @keyframes pulse-ring {
-    0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0.6; }
-    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+  /* Lux input */
+  .lux-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(var(--fg-rgb), 0.12);
+    padding: 14px 0;
+    color: var(--fg);
+    font-size: 16px;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+    display: block;
+    -webkit-appearance: none;
   }
-
-  /* Card arrow hover stagger */
-  .card-svg {
-    overflow: hidden;
-    height: 28px;
-    width: 28px;
-    flex-shrink: 0;
+  .lux-input:focus {
+    border-bottom-color: #A87D5C;
   }
-
-  .card-svg-inner {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
+  .lux-input::placeholder {
+    color: rgba(var(--fg-rgb), 0.3);
   }
-
-  .card:hover .card-svg-inner {
-    transform: translateY(-50%);
-  }
-
-  /* Section label */
-  .section-label {
-    font-family: var(--font-space-mono), monospace;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.35em;
-    color: var(--muted);
-  }
-
-  /* Paren link style */
-  .paren-link {
-    font-family: var(--font-space-mono), monospace;
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    transition: color 0.2s;
-  }
-  .paren-link:hover { color: var(--fg); }
 }

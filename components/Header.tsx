@@ -1,168 +1,159 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-// ── Palette (blue body, gold trim) ──────────────────────────────────────
-const LK  = "#0a0a14";
-const LV1 = "#0e1122";
-const LV2 = "#161c3c";
-const LV3 = "#1e2558";
-const LV4 = "#263076";
-const LV5 = "#303c94";
-const LV6 = "#3c4aaa";
-const LV7 = "#4a58c0";
-const LV8 = "#5868d4";
-const LV9 = "#6878e8";
-const LDA = "#7a4800";
-const LMA = "#c47800";
-const LLA = "#f09020";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
+const HERO_BG =
+  "https://images.pexels.com/photos/32624440/pexels-photo-32624440.jpeg";
 
-type R = [number, number, number, number, string];
-
-function buildCap(K:string,V1:string,V2:string,V3:string,V4:string,V5:string,V6:string,V7:string,V8:string,V9:string,DA:string,MA:string,LA:string): R[] {
-  return [
-    // ── TASSEL ──
-    [3,  3,  6, 1, K ], [3,  4,  1,10, K ],
-    [2, 14,  3, 1, LA], [2, 15,  3, 1, MA], [3, 15,  1, 1, LA], [2, 16,  3, 1, DA],
-    // ── FLAT TOP FACE ──
-    [17,0,1,1,K],[18,0,12,1,V9],[30,0,1,1,K],
-    [14,1,1,1,K],[15,1,4,1,V9],[19,1,11,1,V8],[30,1,4,1,V7],[34,1,1,1,K],
-    [11,2,1,1,K],[12,2,5,1,V9],[17,2,5,1,V8],[22,2,5,1,V7],[27,2,9,1,V6],[36,2,1,1,K],
-    [9,3,1,1,K],[10,3,3,1,V9],[13,3,4,1,V8],[17,3,5,1,V7],[22,3,5,1,V6],[27,3,5,1,V5],[32,3,5,1,V6],[37,3,1,1,V7],[38,3,1,1,K],
-    [9,4,1,1,K],[10,4,3,1,V8],[13,4,4,1,V7],[17,4,4,1,V6],[21,4,4,1,V5],[25,4,5,1,V4],[30,4,4,1,V5],[34,4,3,1,V6],[37,4,1,1,V7],[38,4,1,1,K],
-    [8,5,1,1,K],[9,5,3,1,V8],[12,5,3,1,V7],[15,5,4,1,V6],[19,5,3,1,V5],[22,5,5,1,V4],[27,5,4,1,V4],[31,5,3,1,V5],[34,5,4,1,V6],[38,5,1,1,V7],[39,5,1,1,K],
-    [8,6,1,1,K],[9,6,3,1,V7],[12,6,3,1,V6],[15,6,4,1,V5],[19,6,3,1,V4],[22,6,6,1,V3],[28,6,3,1,V4],[31,6,4,1,V5],[35,6,3,1,V6],[38,6,1,1,V7],[39,6,1,1,K],
-    [9,7,1,1,K],[10,7,2,1,V6],[12,7,3,1,V5],[15,7,4,1,V4],[19,7,3,1,V3],[22,7,6,1,V2],[28,7,3,1,V3],[31,7,4,1,V4],[35,7,3,1,V5],[38,7,1,1,K],
-    // ── BRIM ──
-    [9,8,30,1,K],
-    [9,9,1,1,K],[10,9,2,1,V1],[12,9,1,1,K],[35,9,1,1,K],[36,9,2,1,V1],[38,9,1,1,K],
-    [9,10,1,1,K],[10,10,2,1,V2],[12,10,1,1,K],[35,10,1,1,K],[36,10,2,1,V2],[38,10,1,1,K],
-    // ── CYLINDER ──
-    [12,9,1,12,K],[13,9,1,12,V1],[14,9,1,12,V2],[15,9,2,12,V3],[17,9,2,12,V4],
-    [19,9,2,12,V5],[21,9,3,12,V6],[24,9,4,12,V7],[28,9,3,12,V6],[31,9,2,12,V5],
-    [33,9,1,12,V4],[34,9,1,12,V3],[35,9,1,12,K],
-    [20,9,1,12,V4],[27,9,1,12,V5],[32,9,1,12,V4],
-    // ── TRIM ──
-    [12,21,1,3,K],[35,21,1,3,K],
-    [13,21,22,1,LA],[13,22,22,1,MA],[13,23,22,1,DA],
-    [13,24,22,1,K],
-  ];
-}
-
-function GradCap() {
-  const cap = buildCap(LK,LV1,LV2,LV3,LV4,LV5,LV6,LV7,LV8,LV9,LDA,LMA,LLA);
-
-  const P = 3.2;
-  return (
-    <svg
-      width={50 * P}
-      height={26 * P}
-      viewBox={`0 0 ${50 * P} ${26 * P}`}
-      shapeRendering="crispEdges"
-      style={{ display: "block", pointerEvents: "none" }}
-    >
-      {cap.map(([x, y, w, h, c], i) => (
-        <rect key={i} x={x * P} y={y * P} width={w * P} height={h * P} fill={c} />
-      ))}
-    </svg>
-  );
-}
+const headingWords = [
+  { text: "Building",          cls: "text-white/60" },
+  { text: "Production-Grade",  cls: "font-serif-italic text-[#E8E4D9]" },
+  { text: "Web",               cls: "text-white/80" },
+  { text: "Applications",      cls: "text-white" },
+];
 
 export default function Header() {
-  const [revealed, setRevealed] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  useEffect(() => {
-    const t = setTimeout(() => setRevealed(true), 1000);
-    return () => clearTimeout(t);
-  }, []);
+  const scrollTo = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <motion.header
-      initial={{ opacity: 0 }}
-      animate={{ opacity: revealed ? 1 : 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-[20]"
-      style={{
-        height: "100vh",
-        backgroundColor: "var(--bg)",
-        color: "var(--fg)",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        padding: "0 clamp(24px, 4vw, 64px)",
-        paddingTop: "62px",
-        paddingBottom: "28px",
-      }}
+    <section
+      ref={ref}
+      id="hero"
+      className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-end"
     >
-      {/* Name + cap */}
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <div style={{ position: "relative", display: "inline-block" }}>
+      {/* Background image with parallax */}
+      <motion.div
+        style={{ y: bgY, scale: bgScale, willChange: "transform" }}
+        className="absolute inset-0 -z-10"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={HERO_BG}
+          alt=""
+          className="w-full h-[120%] object-cover opacity-[0.55]"
+          loading="eager"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/40 to-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/50" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_30%,rgba(168,125,92,0.18),transparent_55%)]" />
+      </motion.div>
 
-          {/* Cap sits on top of R — hidden on xs, visible sm+ */}
-          <div
-            className="hidden lg:block"
-            style={{
-              position: "absolute",
-              bottom: "79%",
-              left: "-3%",
-              transform: "rotate(-8deg)",
-              transformOrigin: "65% 100%",
-              zIndex: 10,
-            }}
-          >
-            <GradCap />
-          </div>
-
-          <h1
-            className="font-display font-bold leading-none text-center uppercase"
-            style={{
-              fontSize: "clamp(52px, 10.5vw, 160px)",
-              color: "var(--fg)",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            RACHIT GANDHI
-          </h1>
-        </div>
-      </div>
-
-      {/* Bottom row */}
-      <div className="flex items-center justify-between">
-        <span
-          className="font-mono text-[11px] uppercase tracking-[0.08em]"
-          style={{ color: "var(--fg)", opacity: 0.7 }}
+      {/* Content */}
+      <motion.div
+        style={{ y: textY, opacity, willChange: "transform, opacity" }}
+        className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 pb-20 md:pb-28 lg:pb-32 pt-32 w-full"
+      >
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+          className="flex items-center gap-3 mb-10 md:mb-14"
         >
-          Developer —
-        </span>
+          <span className="h-px w-10 bg-[#A87D5C]" />
+          <span className="font-mono-label text-white/45">
+            Portfolio — 2026
+          </span>
+        </motion.div>
 
-        {/* Socials — hidden on mobile, shown md+ */}
-        <div className="hidden md:flex items-center gap-5">
-          {[
-            { label: "GitHub",   href: "https://github.com/RachitGandhi13" },
-            { label: "LinkedIn", href: "https://linkedin.com/in/rachitgandhi13" },
-            { label: "LeetCode", href: "https://leetcode.com/u/rachitgandhi/" },
-          ].map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[11px] uppercase tracking-[0.08em] transition-opacity hover:opacity-100"
-              style={{ color: "var(--fg)", opacity: 0.7, textDecoration: "none" }}
+        {/* Big heading */}
+        <h1 className="font-display font-medium tracking-tighter text-[44px] sm:text-[64px] md:text-[88px] lg:text-[120px] xl:text-[140px] leading-[0.92]">
+          {headingWords.map((word, i) => (
+            <span
+              key={i}
+              className="overflow-hidden inline-block mr-[0.18em] align-baseline"
             >
-              {label} ↗
-            </a>
+              <motion.span
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{
+                  duration: 1.3,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.55 + i * 0.12,
+                }}
+                className={`inline-block ${word.cls}`}
+              >
+                {word.text}
+              </motion.span>
+            </span>
           ))}
+          <span className="overflow-hidden inline-block align-baseline">
+            <motion.span
+              initial={{ y: "110%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1.3, ease: [0.22, 1, 0.36, 1], delay: 0.55 + headingWords.length * 0.12 }}
+              className="inline-block text-[#A87D5C]"
+            >
+              .
+            </motion.span>
+          </span>
+        </h1>
+
+        {/* Bottom info row */}
+        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 items-end">
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1.1 }}
+            className="md:col-span-5 lg:col-span-4 text-white/50 text-[15px] md:text-[16px] leading-relaxed font-light max-w-md"
+          >
+            Full-stack developer and DevOps engineer. MERN, Next.js, TypeScript.
+            AI-integrated platforms, production infrastructure, Web3. Based in Chennai, IN.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 1.25 }}
+            className="md:col-span-7 lg:col-span-8 flex flex-col sm:flex-row gap-4 sm:gap-5 sm:justify-end items-start sm:items-center"
+          >
+            <button
+              onClick={() => scrollTo("projects")}
+              className="lux-button border border-white/25 rounded-full px-7 py-3.5 text-[14px] font-display tracking-tight text-white inline-flex items-center gap-2"
+            >
+              <span>View Work</span>
+              <span className="text-white/40">↓</span>
+            </button>
+            <button
+              onClick={() => scrollTo("contact")}
+              className="lux-button lux-button-bronze border border-[#A87D5C]/60 rounded-full px-7 py-3.5 text-[14px] font-display tracking-tight text-[#E8E4D9]"
+            >
+              Get in touch
+            </button>
+          </motion.div>
         </div>
 
-        <span
-          className="font-mono text-[11px] uppercase tracking-[0.08em]"
-          style={{ color: "var(--fg)", opacity: 0.7 }}
-        >
-          Chennai, India
-        </span>
-      </div>
-    </motion.header>
+        {/* Bottom stats */}
+        <div className="mt-16 md:mt-24 flex items-end justify-between border-t border-white/10 pt-6">
+          <div className="flex gap-10 md:gap-16">
+            {[
+              { label: "Stack", value: "MERN", bronze: false },
+              { label: "Based in", value: "Chennai, IN", bronze: false },
+              { label: "Availability", value: "Open", bronze: true },
+            ].map((s) => (
+              <div key={s.label}>
+                <p className="font-mono-label text-white/30 mb-2">{s.label}</p>
+                <p className={`text-[14px] font-light ${s.bronze ? "text-[#A87D5C]" : "text-white/85"}`}>{s.value}</p>
+              </div>
+            ))}
+          </div>
+          <span className="font-mono-label text-white/40 hidden md:block">
+            Scroll ↓
+          </span>
+        </div>
+      </motion.div>
+    </section>
   );
 }

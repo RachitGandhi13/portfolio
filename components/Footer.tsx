@@ -1,131 +1,32 @@
 "use client";
 
-import { useState } from "react";
-
 export default function Footer() {
-  const [easterEgg, setEasterEgg] = useState(false);
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
-
+  const year = new Date().getFullYear();
   return (
-    <footer
-      id="contact"
-      style={{
-        backgroundColor: "var(--bg)",
-        color: "var(--fg)",
-        borderTop: "1px solid var(--border)",
-      }}
-    >
-      <div className="px-6 md:px-10 lg:px-16 pt-20 pb-10">
-        {/* CTA line */}
-        <p
-          className="font-sans font-light mb-4"
-          style={{ fontSize: "clamp(14px, 1.8vw, 20px)", color: "var(--muted)" }}
-        >
-          Have a project in mind? Feel free to contact.
-        </p>
-
-        {/* Large email */}
-        <a
-          href="mailto:rachitgandhi7727@gmail.com"
-          className="group inline-block"
-          style={{ lineHeight: 1 }}
-        >
-          <span
-            className="font-display font-bold block transition-opacity duration-200 hover:opacity-60"
-            style={{
-              fontSize: "clamp(28px, 5.5vw, 88px)",
-              color: "var(--fg)",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            rachitgandhi7727@gmail.com
+    <footer className="bg-[#F5F4F0] dark:bg-[#0a0a0a] border-t border-black/10 dark:border-white/10">
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <span className="font-display text-[#0a0a0a] dark:text-white text-[15px] tracking-tight">
+            Rachit Gandhi<span className="text-[#A87D5C]">.</span>
           </span>
-        </a>
-
-        {/* Divider */}
-        <div style={{ borderTop: "1px solid var(--border)", marginTop: "clamp(40px,6vw,80px)" }} />
-
-        {/* Bottom bar */}
-        <div className="pt-6 flex flex-col gap-6">
-          {/* Back to top */}
-          <div>
-            <button
-              onClick={scrollToTop}
-              className="font-mono text-[11px] tracking-[0.08em] uppercase transition-opacity hover:opacity-60"
-              style={{ color: "var(--fg)", background: "none", border: "none" }}
-            >
-              Back to Top ↑
-            </button>
-          </div>
-
-          {/* Links row */}
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="flex items-center gap-6">
-              <a
-                href="https://github.com/RachitGandhi13"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.08em] transition-opacity hover:opacity-60"
-                style={{ color: "var(--fg)" }}
-              >
-                GitHub
-              </a>
-              <a
-                href="https://linkedin.com/in/rachitgandhi13"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[11px] uppercase tracking-[0.08em] transition-opacity hover:opacity-60"
-                style={{ color: "var(--fg)" }}
-              >
-                LinkedIn
-              </a>
-              <a
-                href="mailto:rachitgandhi7727@gmail.com"
-                className="font-mono text-[11px] tracking-[0.04em] transition-opacity hover:opacity-60"
-                style={{ color: "var(--muted)" }}
-              >
-                rachitgandhi7727@gmail.com
-              </a>
-            </div>
-
-            <span className="font-mono text-[10px] tracking-[0.06em]" style={{ color: "var(--muted)", opacity: 0.5 }}>
-              Design &amp; Dev by Rachit Gandhi
-            </span>
-          </div>
-
-          {/* Easter egg row */}
-          <div className="flex items-center justify-between">
-            <span
-              className="font-mono text-[11px] uppercase tracking-[0.08em]"
-              style={{ color: "var(--fg)", opacity: 0.4 }}
-            >
-              Party!
-            </span>
-
-            <button
-              onClick={() => setEasterEgg(!easterEgg)}
-              className="font-mono text-[9px] transition-opacity"
-              style={{
-                color: easterEgg ? "var(--fg)" : "transparent",
-                background: "none",
-                border: "none",
-                letterSpacing: "0.06em",
-              }}
-              aria-label="Easter egg"
-            >
-              {easterEgg ? "● shhh ~ You found a hidden link" : "● ·····"}
-            </button>
-
-            <a
-              href="/RachitRESUME.pdf"
-              download="RachitRESUME.pdf"
-              className="font-mono text-[11px] uppercase tracking-[0.08em] transition-opacity hover:opacity-60"
-              style={{ color: "var(--fg)", opacity: 0.7 }}
-            >
-              Resume ↓
-            </a>
-          </div>
+          <span className="font-mono-label text-black/35 dark:text-white/35">
+            © {year} — All rights reserved
+          </span>
+        </div>
+        <div className="flex items-center gap-8">
+          <span className="font-mono-label text-black/35 dark:text-white/35">
+            Crafted with restraint
+          </span>
+          <button
+            onClick={() =>
+              document
+                .getElementById("hero")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="font-mono-label text-black/70 dark:text-white/70 hover:text-[#A87D5C] dark:hover:text-[#E8E4D9] transition-colors"
+          >
+            Back to top ↑
+          </button>
         </div>
       </div>
     </footer>
