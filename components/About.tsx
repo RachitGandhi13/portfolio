@@ -25,11 +25,6 @@ function Reveal({
   );
 }
 
-const stats = [
-  { value: "2+", label: "Years Building" },
-  { value: "MERN", label: "Core Stack" },
-  { value: "9.0", label: "GPA at SRM" },
-];
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -104,19 +99,6 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal
-              delay={0.3}
-              className="mt-16 md:mt-24 grid grid-cols-3 gap-6 border-t border-black/10 dark:border-white/10 pt-10"
-            >
-              {stats.map((s) => (
-                <div key={s.label}>
-                  <p className="font-display text-3xl md:text-5xl text-[#0a0a0a] dark:text-white tracking-tighter">
-                    {s.value}
-                  </p>
-                  <p className="font-mono-label text-black/45 dark:text-white/45 mt-3">{s.label}</p>
-                </div>
-              ))}
-            </Reveal>
           </div>
         </div>
       </div>
